@@ -477,6 +477,22 @@ input[type=file]{display:block;width:100%;padding:6px 0;color:var(--ink);font:40
 #adm_box[hidden]{display:none}
 .fb-tabs{grid-template-columns:repeat(3,1fr);gap:8px}
 .fb-tabs .btn{font-size:17px;padding:9px 0;letter-spacing:-.3px}
+
+/* ===== botones iguales (sin deformaciones) ===== */
+.btn{box-sizing:border-box}
+a.btn{text-decoration:none}
+.lbtns{display:flex;gap:8px;flex:none}
+.lbtns .btn{height:40px;padding:0 14px;font-size:19px;line-height:1;margin:0}
+.mapbtns{display:flex;gap:10px;align-self:stretch}
+.mapbtns>.btn,.mapbtns>a.btn{flex:1 1 0;min-width:0;height:46px;padding:0 10px;margin:0;font-size:20px;line-height:1;align-self:auto}
+.fb-btns .btn{height:40px;padding:0 14px;font-size:18px;line-height:1;margin:0}
+.po-vote .btn{height:50px;padding:0 10px;font-size:20px;line-height:1}
+.acts .btn{min-height:48px}
+.fb-tabs .btn{height:46px;padding:0}
+.listbar{flex-wrap:wrap}
+.sec.first{margin-top:0}
+.libtop+#maps{margin-top:0}
+#maps+.sec{margin-top:56px}
 </style></head><body>
 
 <header class="top"><a class="brand" href="#inicio" data-v="inicio"><i></i>World Port Legacy</a></header>
@@ -546,18 +562,20 @@ Listo ✓</pre>
 <div class="view" id="v-biblioteca" hidden>
   <div class="pagehead"><h1>Biblioteca</h1><p>Mapas guardados por la comunidad.</p></div>
   <div class="libtop"><input type="text" id="q" placeholder="Buscar un mapa" aria-label="Buscar un mapa" autocomplete="off"><button class="btn" id="lr" type="button">Actualizar</button></div>
-  <div class="libact"><button class="btn p" id="up_open" type="button">Subir un mapa</button></div>
-  <div class="card" id="upform" hidden>
+  <div id="maps"></div>
+  <section class="sec">
+    <h2>Subir un mapa</h2>
+    <div class="card" id="upform">
     <div class="f"><label class="l" for="up_name">Nombre del mapa</label><input type="text" id="up_name" maxlength="60" placeholder="Ej.: Isla del tesoro" autocomplete="off"></div>
     <div class="f"><label class="l" for="up_author">Hecho por</label><input type="text" id="up_author" maxlength="40" placeholder="Tu nombre" autocomplete="off"></div>
     <div class="f"><label class="l" for="up_ver">Versión o tipo (opcional)</label><input type="text" id="up_ver" maxlength="30" placeholder="Ej.: Java 1.12" autocomplete="off"></div>
     <div class="f"><label class="l" for="up_desc">Descripción (opcional)</label><textarea id="up_desc" maxlength="200" placeholder="Cuenta cómo es el mapa"></textarea></div>
     <div class="f"><label class="l" for="up_file">Archivo del mapa (.zip, .rar o .7z, máx. 50 MB)</label><input type="file" id="up_file" accept=".zip,.rar,.7z"></div>
-    <div class="f"><label class="l" for="up_img">Imagen del mapa</label><input type="file" id="up_img" accept="image/*"><img id="up_prev" class="upl-prev" alt="" hidden></div>
+    <div class="f"><label class="l" for="up_img">Imagen del mapa</label><input type="file" id="up_img" accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,.svg,.tif,.tiff"><img id="up_prev" class="upl-prev" alt="" hidden></div>
     <div class="bar" id="up_bar" hidden><i></i></div>
-    <div class="acts"><button class="btn p" id="up_send" type="button">Subir mapa</button><button class="btn" id="up_cancel" type="button">Cancelar</button></div>
-  </div>
-  <div id="maps"></div>
+    <div class="acts"><button class="btn p" id="up_send" type="button">Subir mapa</button></div>
+    </div>
+  </section>
 </div>
 
 <!-- ================= AVISOS ================= -->
@@ -597,8 +615,13 @@ Listo ✓</pre>
   <div class="fb-tabs"><button class="btn p" id="tab_fb" type="button">Comentarios</button><button class="btn" id="tab_po" type="button">Encuestas</button><button class="btn" id="tab_an" type="button">Anuncios</button></div>
 
   <div id="fb_pane">
+    <section class="sec first">
+      <h2>Comentarios</h2>
+      <div class="listbar"><span id="fb_count"></span><div class="lbtns"><button class="btn sm" id="fb_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="fbform">Escribir</button></div></div>
+      <div id="fblist"></div>
+    </section>
     <section class="sec">
-      <h2>Escribir</h2>
+      <h2>Escribir un comentario</h2>
       <div class="card" id="fbform">
         <div class="f"><label class="l" for="fb_name">Tu nombre</label><input type="text" id="fb_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
         <div class="fb-reply" id="fb_rep" hidden><span id="fb_rep_t"></span><button class="btn" id="fb_rep_x" type="button">Cancelar</button></div>
@@ -607,14 +630,14 @@ Listo ✓</pre>
         <div class="acts"><button class="btn p" id="fb_send" type="button">Enviar</button></div>
       </div>
     </section>
-    <section class="sec">
-      <h2>Comentarios</h2>
-      <div class="listbar"><span id="fb_count"></span><button class="btn sm" id="fb_ref" type="button">Actualizar</button></div>
-      <div id="fblist"></div>
-    </section>
   </div>
 
   <div id="po_pane" hidden>
+    <section class="sec first">
+      <h2>Encuestas</h2>
+      <div class="listbar"><span id="po_count"></span><div class="lbtns"><button class="btn sm" id="po_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="poform">Publicar</button></div></div>
+      <div id="polist"></div>
+    </section>
     <section class="sec">
       <h2>Nueva encuesta</h2>
       <div class="card" id="poform">
@@ -624,14 +647,14 @@ Listo ✓</pre>
         <div class="acts"><button class="btn p" id="po_send" type="button">Publicar encuesta</button></div>
       </div>
     </section>
-    <section class="sec">
-      <h2>Encuestas</h2>
-      <div class="listbar"><span id="po_count"></span><button class="btn sm" id="po_ref" type="button">Actualizar</button></div>
-      <div id="polist"></div>
-    </section>
   </div>
 
   <div id="an_pane" hidden>
+    <section class="sec first">
+      <h2>Anuncios</h2>
+      <div class="listbar"><span id="an_count"></span><div class="lbtns"><button class="btn sm" id="an_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="anform">Publicar</button></div></div>
+      <div id="anlist"></div>
+    </section>
     <section class="sec">
       <h2>Nuevo anuncio</h2>
       <div class="card" id="anform">
@@ -640,11 +663,6 @@ Listo ✓</pre>
         <div class="f" id="an_pwbox"><label class="l" for="an_pw">Contraseña para publicar</label><input type="password" id="an_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
         <div class="acts"><button class="btn p" id="an_send" type="button">Publicar anuncio</button></div>
       </div>
-    </section>
-    <section class="sec">
-      <h2>Anuncios</h2>
-      <div class="listbar"><span id="an_count"></span><button class="btn sm" id="an_ref" type="button">Actualizar</button></div>
-      <div id="anlist"></div>
     </section>
   </div>
 </div>
@@ -1421,34 +1439,45 @@ visitCount();
    Subir mapas a la biblioteca (Storage + función publicar_mapa)
    ===================================================================== */
 var UP = {busy:false, last:0, img:null};
-$('up_open').onclick = function(){
-  $('upform').hidden = !$('upform').hidden;
-  if(!$('upform').hidden){
-    if(!$('up_author').value) $('up_author').value = CFG.author || '';
-    $('upform').scrollIntoView({behavior:'smooth', block:'start'});
-  }
-};
-$('up_cancel').onclick = function(){ $('upform').hidden = true; };
-function shrinkImg(file, maxW){
+$('up_author').value = CFG.author || '';
+function drawToJpeg(src, w, h, maxW){
+  var k = Math.min(1, maxW / w), cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(w * k)); cv.height = Math.max(1, Math.round(h * k));
+  var cx = cv.getContext('2d'); cx.fillStyle = '#000'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(src, 0, 0, cv.width, cv.height);
+  return new Promise(function(res, rej){
+    cv.toBlob(function(b){
+      if(b) res(b); else cv.toBlob(function(b2){ b2 ? res(b2) : rej(new Error('img')); });
+    }, 'image/jpeg', 0.85);
+  });
+}
+function loadImgEl(file){
   return new Promise(function(res, rej){
     var url = URL.createObjectURL(file), im = new Image();
-    im.onload = function(){
-      var k = Math.min(1, maxW / im.naturalWidth), cv = document.createElement('canvas');
-      cv.width = Math.max(1, Math.round(im.naturalWidth * k)); cv.height = Math.max(1, Math.round(im.naturalHeight * k));
-      var cx = cv.getContext('2d'); cx.fillStyle = '#000'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(im, 0, 0, cv.width, cv.height);
-      URL.revokeObjectURL(url);
-      cv.toBlob(function(b){ b ? res(b) : rej(new Error('img')); }, 'image/jpeg', 0.82);
-    };
+    im.onload = function(){ res({el:im, w:im.naturalWidth || im.width, h:im.naturalHeight || im.height, url:url}); };
     im.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('img')); };
     im.src = url;
   });
 }
+async function shrinkImg(file, maxW){
+  /* 1) intenta con createImageBitmap (respeta la rotación de las fotos del celular) */
+  if(window.createImageBitmap){
+    try{
+      var bm = await createImageBitmap(file, {imageOrientation:'from-image'});
+      var out = await drawToJpeg(bm, bm.width, bm.height, maxW);
+      if(bm.close) bm.close();
+      return out;
+    }catch(e){}
+  }
+  /* 2) si no, con un elemento de imagen normal (cualquier formato que abra el navegador) */
+  var o = await loadImgEl(file);
+  try{ return await drawToJpeg(o.el, o.w, o.h, maxW); }
+  finally{ URL.revokeObjectURL(o.url); }
+}
 $('up_img').onchange = async function(){
   UP.img = null; $('up_prev').hidden = true;
   var f = this.files && this.files[0]; if(!f) return;
-  if(!/^image\//.test(f.type)){ toast('Elige una imagen (JPG o PNG).'); this.value = ''; return; }
   try{ UP.img = await shrinkImg(f, 960); $('up_prev').src = URL.createObjectURL(UP.img); $('up_prev').hidden = false; }
-  catch(e){ toast('No se pudo leer esa imagen.'); this.value = ''; }
+  catch(e){ toast('Tu navegador no pudo abrir esa foto. Prueba con otra (JPG, PNG, WEBP...).'); this.value = ''; }
 };
 function xhrPost(url, headers, blob, onprog){
   return new Promise(function(res, rej){
@@ -1499,9 +1528,10 @@ async function sendUp(){
     if(!r.ok) throw new Error('No se pudo publicar el mapa ' + await why(r) + '.');
     UP.last = Date.now(); CFG.author = author; saveCfg();
     ['up_name', 'up_ver', 'up_desc', 'up_file', 'up_img'].forEach(function(k){ $(k).value = ''; });
-    UP.img = null; $('up_prev').hidden = true; $('upform').hidden = true;
+    UP.img = null; $('up_prev').hidden = true; $('up_bar').hidden = true;
     toast('¡Mapa subido a la biblioteca!');
     loadLib(true);
+    try{ $('maps').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo subir. Revisa tu conexión.' : e.message); }
   finally{ UP.busy = false; $('up_send').disabled = false; $('up_send').textContent = 'Subir mapa'; $('up_bar').hidden = true; }
 }
@@ -1551,6 +1581,10 @@ $('an_send').onclick = async function(){
   finally{ AN.busy = false; $('an_send').disabled = false; $('an_send').textContent = 'Publicar anuncio'; }
 };
 $('an_ref').onclick = function(){ loadAn(true); };
+document.addEventListener('click', function(e){
+  var g = e.target.closest ? e.target.closest('[data-goto]') : null; if(!g) return;
+  var t = $(g.getAttribute('data-goto')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+});
 
 /* =====================================================================
    Navegación
