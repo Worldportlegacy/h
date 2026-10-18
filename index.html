@@ -359,6 +359,27 @@ button,a,label,select,summary,.drop,.tool,[data-v]{touch-action:manipulation}
 /* contador de visitantes */
 #visits[hidden],#visitsd[hidden]{display:none}
 #visits b,#visitsd b{font-weight:400;color:var(--neon)}
+/* orden de Bugs y sugerencias */
+input[type=password]{display:block;width:100%;min-width:0;padding:8px 12px;border:3px solid #a0a0a0;outline:3px solid #000;outline-offset:0;border-radius:0;background:#0a0a0a;color:#fff;font:400 22px/1.2 var(--vt)}
+input[type=password]:hover{border-color:#fff}
+input[type=password]:focus{border-color:var(--neon);box-shadow:0 0 14px var(--neon-glow)}
+.fb{cursor:default}
+.fb-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.fb-tabs .btn{width:100%;min-width:0}
+.fb-tabs .btn:not(.p){opacity:.8}
+.adm-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px;padding:8px 12px;border:3px solid #FFD83A;background:rgba(0,0,0,.7);color:#FFD83A;font:400 20px/1.2 var(--vt)}
+.adm-bar[hidden]{display:none}
+.adm-bar .btn{flex:none;min-width:0;padding:4px 12px;font-size:16px}
+.listbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;color:#d8d8d8;font:400 21px/1.2 var(--vt)}
+.fb-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap}
+.fb-foot small{display:block;margin:0}
+.fb-btns{display:flex;gap:8px;flex-wrap:wrap}
+.fb-btns .btn{margin:0;min-width:0;padding:4px 12px;font-size:16px}
+.btn.del{margin:0;color:#FFB4A8}
+.adm-link{display:block;margin:28px auto 6px;padding:6px 10px;background:none;border:0;color:#cfcfcf;font:400 19px var(--vt);text-decoration:underline;cursor:pointer}
+.fb-thread{margin-bottom:14px}
+.fb.rep{margin-left:18px}
+.fb.sel{outline:3px solid var(--neon)}
 /* borrar / admin */
 .btn.del{margin-top:10px;min-width:0;padding:4px 12px;font-size:16px}
 .po-vote .btn{font-size:20px}
@@ -501,30 +522,48 @@ Listo ✓</pre>
 <!-- ================= BUGS Y SUGERENCIAS ================= -->
 <div class="view" id="v-bugs" hidden>
   <div class="pagehead"><h1>Bugs y sugerencias</h1><p>Cuéntanos qué falla o qué te gustaría ver.</p></div>
+  <div class="adm-bar" id="adm_bar" hidden><span>Modo admin activo: puedes borrar todo.</span><button class="btn" id="adm_out" type="button">Salir</button></div>
   <div class="fb-tabs"><button class="btn p" id="tab_fb" type="button">Comentarios</button><button class="btn" id="tab_po" type="button">Encuestas</button></div>
+
   <div id="fb_pane">
-  <div class="card" id="fbform">
-      <div class="f"><label class="l" for="fb_name">Tu nombre</label><input type="text" id="fb_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
-      <div class="fb-reply" id="fb_rep" hidden><span id="fb_rep_t"></span><button class="btn" id="fb_rep_x" type="button">Cancelar</button></div>
-    <div class="f" id="fb_kindbox"><label class="l" for="fb_kind">Tipo</label><select id="fb_kind"><option value="sugerencia">Sugerencia</option><option value="bug">Bug (algo falla)</option></select></div>
-      <div class="f"><label class="l" for="fb_msg">Comentario</label><textarea id="fb_msg" maxlength="500" placeholder="Escribe aquí…"></textarea><span class="fb-count" id="fb_cnt">0 / 500</span></div>
-      <div class="acts"><button class="btn p" id="fb_send" type="button">Enviar</button><button class="btn" id="fb_ref" type="button">Actualizar</button></div>
-    </div>
-    <div id="fblist" style="margin-top:14px"></div>
+    <section class="sec">
+      <h2>Escribir</h2>
+      <div class="card" id="fbform">
+        <div class="f"><label class="l" for="fb_name">Tu nombre</label><input type="text" id="fb_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
+        <div class="fb-reply" id="fb_rep" hidden><span id="fb_rep_t"></span><button class="btn" id="fb_rep_x" type="button">Cancelar</button></div>
+        <div class="f" id="fb_kindbox"><label class="l" for="fb_kind">Tipo</label><select id="fb_kind"><option value="sugerencia">Sugerencia</option><option value="bug">Bug (algo falla)</option></select></div>
+        <div class="f"><label class="l" for="fb_msg">Comentario</label><textarea id="fb_msg" maxlength="500" placeholder="Escribe aquí…"></textarea><span class="fb-count" id="fb_cnt">0 / 500</span></div>
+        <div class="acts"><button class="btn p" id="fb_send" type="button">Enviar</button></div>
+      </div>
+    </section>
+    <section class="sec">
+      <h2>Comentarios</h2>
+      <div class="listbar"><span id="fb_count"></span><button class="btn sm" id="fb_ref" type="button">Actualizar</button></div>
+      <div id="fblist"></div>
+    </section>
   </div>
+
   <div id="po_pane" hidden>
-    <div class="card" id="poform">
-      <div class="f"><label class="l" for="po_name">Tu nombre</label><input type="text" id="po_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
-      <div class="f"><label class="l" for="po_pw">Contraseña para publicar</label><input type="password" id="po_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
-      <div class="f"><label class="l" for="po_q">Tu pregunta (se responde Sí o No)</label><textarea id="po_q" maxlength="200" placeholder="Ej.: ¿Quieren que agreguemos más mapas?"></textarea><span class="fb-count" id="po_cnt">0 / 200</span></div>
-      <div class="acts"><button class="btn p" id="po_send" type="button">Publicar encuesta</button><button class="btn" id="po_ref" type="button">Actualizar</button></div>
-    </div>
-    <div id="polist" style="margin-top:14px"></div>
+    <section class="sec">
+      <h2>Nueva encuesta</h2>
+      <div class="card" id="poform">
+        <div class="f"><label class="l" for="po_name">Tu nombre</label><input type="text" id="po_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
+        <div class="f"><label class="l" for="po_pw">Contraseña para publicar</label><input type="password" id="po_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
+        <div class="f"><label class="l" for="po_q">Pregunta (se responde Sí o No)</label><textarea id="po_q" maxlength="200" placeholder="Ej.: ¿Quieren que agreguemos más mapas?"></textarea><span class="fb-count" id="po_cnt">0 / 200</span></div>
+        <div class="acts"><button class="btn p" id="po_send" type="button">Publicar encuesta</button></div>
+      </div>
+    </section>
+    <section class="sec">
+      <h2>Encuestas</h2>
+      <div class="listbar"><span id="po_count"></span><button class="btn sm" id="po_ref" type="button">Actualizar</button></div>
+      <div id="polist"></div>
+    </section>
   </div>
-  <div class="acts" style="margin-top:18px"><button class="btn" id="adm_btn" type="button">Modo admin</button></div>
-  <div class="card" id="adm_box" hidden style="margin-top:12px">
+
+  <button class="adm-link" id="adm_btn" type="button">Entrar como admin</button>
+  <div class="card" id="adm_box" hidden>
     <div class="f"><label class="l" for="adm_pw">Contraseña de admin</label><input type="password" id="adm_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
-    <div class="acts"><button class="btn p" id="adm_ok" type="button">Entrar</button></div>
+    <div class="acts"><button class="btn p" id="adm_ok" type="button">Entrar</button><button class="btn" id="adm_cancel" type="button">Cancelar</button></div>
   </div>
 </div>
 <p class="foot">World Port Legacy. Minecraft es una marca de Mojang; este sitio no está afiliado a Mojang ni a Microsoft.</p>
@@ -926,7 +965,7 @@ async function loadLib(force){
   box.innerHTML = '<div class="empty">Cargando mapas…</div>';
   try{
     var r = await fetch(c.url + '/rest/v1/' + encodeURIComponent(c.table) + '?select=*&order=created_at.desc&limit=200', {headers:{apikey:c.key, Authorization:'Bearer '+c.key}});
-    if(!r.ok) throw new Error('No se pudo cargar la biblioteca ahora mismo. Intenta de nuevo en un momento.');
+    if(!r.ok) throw new Error('No se pudo cargar la biblioteca ' + await why(r) + '.');
     LIB.items = await r.json(); LIB.at = Date.now(); renderMaps();
   }catch(e){
     LIB.items = null;
@@ -964,7 +1003,7 @@ async function loadFb(force){
   box.innerHTML = '<div class="empty">Cargando comentarios…</div>';
   try{
     var r = await fetch(c.url + '/rest/v1/feedback?select=*&order=created_at.desc&limit=200', {headers:fbHeaders(c)});
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta crear la tabla "feedback" en Supabase.' : 'No se pudieron cargar los comentarios ahora mismo.');
+    if(!r.ok) throw new Error('No se pudieron cargar los comentarios ' + await why(r) + '.');
     FB.items = await r.json(); FB.at = Date.now(); renderFb();
   }catch(e){
     FB.items = null;
@@ -973,6 +1012,7 @@ async function loadFb(force){
 }
 function renderFb(){
   var l = FB.items || [], box = $('fblist');
+  $('fb_count').textContent = l.length + (l.length == 1 ? ' comentario' : ' comentarios');
   if(!l.length){ box.innerHTML = '<div class="empty">Todavía no hay comentarios. ¡Escribe el primero!</div>'; return; }
   var byId = {}, kids = {}, roots = [];
   l.forEach(function(m){ byId[m.id] = m; });
@@ -980,18 +1020,23 @@ function renderFb(){
     if(m.parent_id && byId[m.parent_id]){ (kids[m.parent_id] = kids[m.parent_id] || []).push(m); }
     else roots.push(m);
   });
+  function card(m, rid, rep){
+    var bug = m.kind == 'bug';
+    return '<div class="card fb '+(rep ? 'rep' : (bug ? 'bug' : 'sug'))+'" data-rid="'+rid+'" data-rname="'+esc(m.name)+'">'+
+      '<div class="h"><b>'+esc(m.name)+'</b><span class="tag'+(!rep && bug ? ' bug' : '')+'">'+(rep ? 'Respuesta' : (bug ? 'Bug' : 'Sugerencia'))+'</span></div>'+
+      '<p>'+esc(m.message)+'</p>'+
+      '<div class="fb-foot"><small>'+esc(ago(m.created_at))+(!rep && (kids[m.id] || []).length ? ' · '+kids[m.id].length+((kids[m.id] || []).length == 1 ? ' respuesta' : ' respuestas') : '')+'</small>'+
+      '<div class="fb-btns"><button class="btn sm" type="button" data-reply="1">Responder</button>'+delBtn('c', m.id, m.owner_hash)+'</div></div></div>';
+  }
   box.innerHTML = roots.map(function(m){
-    var bug = m.kind == 'bug', r = (kids[m.id] || []).slice().reverse();
-    return '<div class="fb-thread"><div class="card fb '+(bug ? 'bug' : 'sug')+'" data-id="'+m.id+'" data-name="'+esc(m.name)+'"><div class="h"><b>'+esc(m.name)+'</b><span class="tag'+(bug ? ' bug' : '')+'">'+(bug ? 'Bug' : 'Sugerencia')+'</span></div><p>'+esc(m.message)+'</p><small>'+esc(ago(m.created_at))+(r.length ? ' · '+r.length+(r.length == 1 ? ' respuesta' : ' respuestas') : '')+'</small><span class="hint">Toca para responder</span>'+delBtn('c', m.id, m.owner_hash)+'</div>'+
-      r.map(function(k){
-        return '<div class="card fb rep" data-id="'+m.id+'" data-name="'+esc(k.name)+'"><div class="h"><b>'+esc(k.name)+'</b><span class="tag">Respuesta</span></div><p>'+esc(k.message)+'</p><small>'+esc(ago(k.created_at))+'</small>'+delBtn('c', k.id, k.owner_hash)+'</div>';
-      }).join('')+'</div>';
+    var r = (kids[m.id] || []).slice().reverse();
+    return '<div class="fb-thread">'+card(m, m.id, false)+r.map(function(k){ return card(k, m.id, true); }).join('')+'</div>';
   }).join('');
   markSel();
 }
 function markSel(){
   var n = $('fblist').querySelectorAll('.fb'), i;
-  for(i = 0; i < n.length; i++) n[i].classList.toggle('sel', !!FB.reply && FB.reply.id == n[i].getAttribute('data-id') && FB.reply.name == n[i].getAttribute('data-name'));
+  for(i = 0; i < n.length; i++) n[i].classList.toggle('sel', !!FB.reply && FB.reply.id == n[i].getAttribute('data-rid') && FB.reply.name == n[i].getAttribute('data-rname'));
 }
 function setReply(r){
   FB.reply = r || null;
@@ -1008,11 +1053,10 @@ function setReply(r){
   markSel();
 }
 $('fblist').addEventListener('click', function(e){
-  var dl = e.target.closest ? e.target.closest('[data-del]') : null;
-  if(dl){ delItem(dl); return; }
-  var c = e.target.closest ? e.target.closest('.fb') : null;
-  if(!c) return;
-  setReply({id:c.getAttribute('data-id'), name:c.getAttribute('data-name')});
+  var t = e.target; if(!t || !t.closest) return;
+  var dl = t.closest('[data-del]'); if(dl){ delItem(dl); return; }
+  var rp = t.closest('[data-reply]');
+  if(rp){ var c = rp.closest('.fb'); setReply({id:c.getAttribute('data-rid'), name:c.getAttribute('data-rname')}); }
 });
 $('fb_rep_x').onclick = function(){
   var t = $('fb_msg');
@@ -1038,7 +1082,7 @@ async function sendFb(){
     var post = function(){ return fetch(c.url + '/rest/v1/feedback', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json', Prefer:'return=minimal'}), body:JSON.stringify(payload)}); };
     var r = await post();
     if(!r.ok && r.status == 400 && payload.owner_hash){ delete payload.owner_hash; r = await post(); }
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta crear la tabla "feedback" en Supabase.' : (payload.parent_id && r.status == 400 ? 'Falta agregar la columna parent_id en Supabase.' : 'No se pudo enviar. Intenta de nuevo.'));
+    if(!r.ok) throw new Error('No se pudo enviar ' + await why(r) + '.');
     FB.last = Date.now(); CFG.author = name; saveCfg();
     $('fb_msg').value = ''; $('fb_cnt').textContent = '0 / 500'; setReply(null);
     toast('¡Gracias! Tu comentario quedó publicado.');
@@ -1087,9 +1131,15 @@ function myHash(){
   return sha256hex(deviceId()).then(function(h){ MYH = h; return h; }).catch(function(){ return null; });
 }
 myHash().then(function(){ if(FB.items) renderFb(); if(PO.items) renderPo(); });
+/* detalle del error de Supabase (código y mensaje) para saber qué falla */
+async function why(r){
+  var d = '';
+  try{ var j = await r.clone().json(); d = (j.code ? j.code + ': ' : '') + (j.message || j.error_description || j.error || ''); }catch(e){}
+  return '(' + r.status + (d ? ' · ' + d.slice(0, 110) : '') + ')';
+}
 function delBtn(kind, id, oh){
   if(!(ADM.on || (MYH && oh && oh === MYH))) return '';
-  return '<button class="btn del" type="button" data-del="'+kind+'" data-did="'+id+'">Borrar</button>';
+  return '<button class="btn sm del" type="button" data-del="'+kind+'" data-did="'+id+'">Borrar</button>';
 }
 function rerenderAll(){ if(FB.items) renderFb(); if(PO.items) renderPo(); }
 async function delItem(b){
@@ -1097,26 +1147,32 @@ async function delItem(b){
   if(!confirm(kind == 'c' ? '¿Borrar este comentario? Si tiene respuestas, también se borran.' : '¿Borrar esta encuesta y todos sus votos?')) return;
   try{
     var r = await fetch(c.url + '/rest/v1/rpc/' + (kind == 'c' ? 'borrar_comentario' : 'borrar_encuesta'), {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_id:id, p_device:deviceId(), p_clave:ADM.on ? ADM.clave : ''})});
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta actualizar Supabase para poder borrar.' : 'No se pudo borrar. Intenta de nuevo.');
+    if(!r.ok) throw new Error('No se pudo borrar ' + await why(r) + '. ¿Ya corriste el SQL de Supabase?');
     if((await r.json()) !== true){ toast('No tienes permiso para borrar eso.'); return; }
     toast('Borrado.');
     if(kind == 'c') loadFb(true); else loadPo(true, true);
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo borrar. Revisa tu conexión.' : e.message); }
 }
+function admUI(){
+  $('adm_bar').hidden = !ADM.on;
+  $('adm_btn').hidden = ADM.on;
+  if(ADM.on) $('adm_box').hidden = true;
+}
 $('adm_btn').onclick = function(){
-  if(ADM.on){ ADM.on = false; ADM.clave = ''; $('adm_btn').textContent = 'Modo admin'; toast('Saliste del modo admin.'); rerenderAll(); return; }
   $('adm_box').hidden = !$('adm_box').hidden;
-  if(!$('adm_box').hidden) $('adm_pw').focus();
+  if(!$('adm_box').hidden){ $('adm_pw').focus(); $('adm_box').scrollIntoView({behavior:'smooth', block:'center'}); }
 };
+$('adm_cancel').onclick = function(){ $('adm_pw').value = ''; $('adm_box').hidden = true; };
+$('adm_out').onclick = function(){ ADM.on = false; ADM.clave = ''; admUI(); toast('Saliste del modo admin.'); rerenderAll(); };
 $('adm_ok').onclick = async function(){
   var pw = $('adm_pw').value, c = supa();
   if(!pw){ toast('Escribe la contraseña.'); return; }
   try{
     var r = await fetch(c.url + '/rest/v1/rpc/es_admin', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_clave:pw})});
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta actualizar Supabase para el modo admin.' : 'No se pudo comprobar. Intenta de nuevo.');
+    if(!r.ok) throw new Error('No se pudo comprobar ' + await why(r) + '.');
     if((await r.json()) !== true){ toast('Contraseña incorrecta.'); return; }
-    ADM.on = true; ADM.clave = pw; $('adm_pw').value = ''; $('adm_box').hidden = true;
-    $('adm_btn').textContent = 'Salir de admin'; toast('Modo admin activado.'); rerenderAll();
+    ADM.on = true; ADM.clave = pw; $('adm_pw').value = ''; admUI();
+    toast('Modo admin activado.'); rerenderAll();
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo comprobar. Revisa tu conexión.' : e.message); }
 };
 async function loadPo(force, silent){
@@ -1126,7 +1182,7 @@ async function loadPo(force, silent){
   if(!silent) box.innerHTML = '<div class="empty">Cargando encuestas…</div>';
   try{
     var r = await fetch(c.url + '/rest/v1/rpc/listar_encuestas', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:'{}'});
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta crear las encuestas en Supabase.' : 'No se pudieron cargar las encuestas ahora mismo.');
+    if(!r.ok) throw new Error('No se pudieron cargar las encuestas ' + await why(r) + '.');
     PO.items = await r.json(); PO.at = Date.now(); renderPo();
   }catch(e){
     PO.items = null;
@@ -1135,16 +1191,19 @@ async function loadPo(force, silent){
 }
 function renderPo(){
   var l = PO.items || [], mine = myVotes();
+  $('po_count').textContent = l.length + (l.length == 1 ? ' encuesta' : ' encuestas');
   if(!l.length){ $('polist').innerHTML = '<div class="empty">Todavía no hay encuestas. ¡Publica la primera!</div>'; return; }
   $('polist').innerHTML = l.map(function(e){
     var si = Number(e.votos_si) || 0, no = Number(e.votos_no) || 0, t = si + no, v = mine[e.id];
     var ps = t ? Math.round(si * 100 / t) : 0, pn = t ? 100 - ps : 0;
-    return '<div class="card fb sug" style="cursor:default"><div class="h"><b>'+esc(e.name)+'</b><span class="tag">Encuesta</span></div><p>'+esc(e.question)+'</p>'+
-      (v ? '<div class="po-vote"><button class="btn" type="button" data-vote="'+(v == 'si' ? 'no' : 'si')+'" data-id="'+e.id+'">Cambiar a '+(v == 'si' ? 'No' : 'Sí')+'</button><button class="btn" type="button" data-unvote="1" data-id="'+e.id+'">Quitar voto</button></div>'
-         : '<div class="po-vote"><button class="btn p" type="button" data-vote="si" data-id="'+e.id+'">Sí</button><button class="btn" type="button" data-vote="no" data-id="'+e.id+'">No</button></div>')+
+    var btns = v
+      ? '<div class="po-vote"><button class="btn" type="button" data-vote="'+(v == 'si' ? 'no' : 'si')+'" data-id="'+e.id+'">Cambiar a '+(v == 'si' ? 'No' : 'Sí')+'</button><button class="btn" type="button" data-unvote="1" data-id="'+e.id+'">Quitar voto</button></div>'
+      : '<div class="po-vote"><button class="btn p" type="button" data-vote="si" data-id="'+e.id+'">Sí</button><button class="btn" type="button" data-vote="no" data-id="'+e.id+'">No</button></div>';
+    return '<div class="card fb sug"><div class="h"><b>'+esc(e.name)+'</b><span class="tag">Encuesta</span></div><p>'+esc(e.question)+'</p>'+btns+
       '<div class="po-bars"><div class="po-row'+(v == 'si' ? ' mine' : '')+'"><i style="width:'+ps+'%"></i><span>Sí</span><span>'+ps+'% · '+si+'</span></div>'+
       '<div class="po-row no'+(v == 'no' ? ' mine' : '')+'"><i style="width:'+pn+'%"></i><span>No</span><span>'+pn+'% · '+no+'</span></div></div>'+
-      '<small>'+esc(ago(e.created_at))+' · '+t+(t == 1 ? ' voto' : ' votos')+(v ? ' · votaste '+(v == 'si' ? 'Sí' : 'No') : '')+'</small>'+delBtn('p', e.id, e.owner_hash)+'</div>';
+      '<div class="fb-foot"><small>'+esc(ago(e.created_at))+' · '+t+(t == 1 ? ' voto' : ' votos')+(v ? ' · votaste '+(v == 'si' ? 'Sí' : 'No') : '')+'</small>'+
+      '<div class="fb-btns">'+delBtn('p', e.id, e.owner_hash)+'</div></div></div>';
   }).join('');
 }
 async function castVote(id, v){
@@ -1188,7 +1247,7 @@ async function sendPo(){
   PO.busy = true; $('po_send').disabled = true; $('po_send').textContent = 'Publicando…';
   try{
     var r = await fetch(c.url + '/rest/v1/rpc/crear_encuesta', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_name:name.slice(0,40), p_question:q.slice(0,200), p_clave:pw, p_device:deviceId()})});
-    if(!r.ok) throw new Error(r.status == 404 ? 'Falta actualizar las encuestas en Supabase.' : 'No se pudo publicar. Intenta de nuevo.');
+    if(!r.ok) throw new Error('No se pudo publicar ' + await why(r) + '.');
     var okp = await r.json();
     if(okp !== true){ toast('Contraseña incorrecta.'); return; }
     PO.last = Date.now(); CFG.author = name; saveCfg();
