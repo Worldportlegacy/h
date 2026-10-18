@@ -1469,8 +1469,19 @@ visitCount();
 /* =====================================================================
    Subir mapas a la biblioteca (Storage + función publicar_mapa)
    ===================================================================== */
-var UP = {busy:false, last:0, img:null};
+var UP = {busy:false, last:0, img:null, zip:null, zipFor:null};
 $('up_author').value = CFG.author || '';
+$('up_file').onchange = async function(){
+  UP.zip = null; UP.zipFor = null;
+  var f = this.files && this.files[0]; if(!f) return;
+  try{
+    var buf = await f.arrayBuffer();
+    UP.zip = new Blob([buf], {type:'application/octet-stream'}); UP.zipFor = f;
+  }catch(e){
+    toast('No se pudo leer ese archivo. Muévelo a la carpeta Descargas y elígelo otra vez.');
+    this.value = '';
+  }
+};
 function drawToJpeg(src, w, h, maxW){
   var k = Math.min(1, maxW / w), cv = document.createElement('canvas');
   cv.width = Math.max(1, Math.round(w * k)); cv.height = Math.max(1, Math.round(h * k));
@@ -1531,19 +1542,23 @@ function storageHeaders(c, withAuth, extra){
 function keyIsJwt(c){ return String(c.key).indexOf('eyJ') === 0; }
 async function storagePut(c, path, blob, type, onprog, label){
   var url = c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + path.split('/').map(encodeURIComponent).join('/');
-  var auth = keyIsJwt(c), r;
-  try{
-    r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':type, 'x-upsert':'false'}), blob, onprog);
-    if(r.status == 400 || r.status == 401){
-      auth = !auth;
-      r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':type, 'x-upsert':'false'}), blob, onprog);
-    }
-  }catch(e){
-    throw new Error('Se cortó la conexión al subir ' + (label || 'el archivo') + ' (' + human(blob.size) + '). Prueba de nuevo o con una red más estable.');
+  var auth = keyIsJwt(c), r = null, types = [type];
+  if(type !== 'application/octet-stream') types.push('application/octet-stream');
+  var k, netErr = false;
+  for(k = 0; k < types.length; k++){
+    try{
+      r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':types[k], 'x-upsert':'false'}), blob, onprog);
+      if(r.status == 400 || r.status == 401){
+        auth = !auth;
+        r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':types[k], 'x-upsert':'false'}), blob, onprog);
+      }
+      netErr = false; break;
+    }catch(e){ netErr = true; r = null; }
   }
+  if(netErr || !r) throw new Error('Se cortó la conexión al subir ' + (label || 'el archivo') + ' (' + human(blob.size) + '). Prueba de nuevo o con una red más estable.');
   if(r.status < 200 || r.status >= 300){
     var d = ''; try{ var j = JSON.parse(r.text); d = ((j.error || '') + ' ' + (j.message || '')).trim(); }catch(e){}
-    if(/mime/i.test(r.text)) throw new Error('Supabase no deja subir ese tipo de archivo. Falta correr el SQL que permite imágenes en la biblioteca.');
+    if(/mime/i.test(r.text)) throw new Error('Supabase no deja subir ese tipo de archivo. Falta correr el SQL que permite imágenes y mapas en la biblioteca.');
     if(r.status == 413) throw new Error('El archivo pesa más de lo que permite tu proyecto de Supabase.');
     throw new Error('No se pudo subir ' + (label || 'el archivo') + ' (' + r.status + (d ? ' · ' + d.slice(0, 100) : '') + ').');
   }
@@ -1556,6 +1571,10 @@ async function sendUp(){
   if(UP.busy) return;
   var name = $('up_name').value.trim(), author = $('up_author').value.trim(), ver = $('up_ver').value.trim(), desc = $('up_desc').value.trim();
   var f = $('up_file').files && $('up_file').files[0], c = supa();
+  if(f && (!UP.zip || UP.zipFor !== f)){
+    try{ UP.zip = new Blob([await f.arrayBuffer()], {type:'application/octet-stream'}); UP.zipFor = f; }
+    catch(e){ toast('No se pudo leer el archivo del mapa. Muévelo a la carpeta Descargas y elígelo otra vez.'); return; }
+  }
   if(name.length < 3){ toast('Ponle un nombre al mapa (mínimo 3 letras).'); return; }
   if(!author){ toast('Pon quién lo hizo.'); return; }
   if(!f){ toast('Elige el archivo del mapa.'); return; }
@@ -1568,15 +1587,15 @@ async function sendUp(){
   UP.busy = true; $('up_send').disabled = true; $('up_send').textContent = 'Subiendo…'; upBar(0.02);
   var ext = em[1].toLowerCase(), types = {zip:'application/zip', rar:'application/vnd.rar', '7z':'application/x-7z-compressed'};
   var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  var zipPath = 'comunidad/' + id + '.' + ext, imgPath = 'comunidad/' + id + '.jpg', total = f.size + UP.img.size;
+  var zipPath = 'comunidad/' + id + '.' + ext, imgPath = 'comunidad/' + id + '.jpg', total = UP.zip.size + UP.img.size;
   try{
     await storagePut(c, imgPath, UP.img, 'image/jpeg', function(l){ upBar(l / total); }, 'la imagen');
-    await storagePut(c, zipPath, f, types[ext], function(l){ upBar((UP.img.size + l) / total); }, 'el mapa');
+    await storagePut(c, zipPath, UP.zip, types[ext], function(l){ upBar((UP.img.size + l) / total); }, 'el mapa');
     var r = await fetch(c.url + '/rest/v1/rpc/publicar_mapa', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_name:name.slice(0, 60), p_author:author.slice(0, 40), p_description:desc.slice(0, 200), p_source:(ver || 'Comunidad').slice(0, 30), p_storage_path:zipPath, p_image_path:imgPath, p_size:f.size, p_device:deviceId()})});
     if(!r.ok) throw new Error('No se pudo publicar el mapa ' + await why(r) + '.');
     UP.last = Date.now(); CFG.author = author; saveCfg();
     ['up_name', 'up_ver', 'up_desc', 'up_file', 'up_img'].forEach(function(k){ $(k).value = ''; });
-    UP.img = null; $('up_prev').hidden = true; $('up_bar').hidden = true;
+    UP.img = null; UP.zip = null; UP.zipFor = null; $('up_prev').hidden = true; $('up_bar').hidden = true;
     toast('¡Mapa subido a la biblioteca!');
     loadLib(true);
     try{ $('maps').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
