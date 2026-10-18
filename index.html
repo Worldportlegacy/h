@@ -634,8 +634,8 @@ function api(p){ return apiBase() + p; }
 function supa(){
   var s = (SRV.info && SRV.info.supabase) || {};
   return {
-    url: (CFG.supaUrl.trim() || s.url || SUPABASE_DEFAULT_URL || '').replace(/\/+$/, ''),
-    key: CFG.supaKey.trim() || s.anon_key || SUPABASE_DEFAULT_KEY || '',
+    url: (CFG.supaUrl.trim() || SUPABASE_DEFAULT_URL || s.url || '').replace(/\/+$/, ''),
+    key: CFG.supaKey.trim() || SUPABASE_DEFAULT_KEY || s.anon_key || '',
     bucket: s.bucket || 'maps', table: s.table || 'maps'
   };
 }
