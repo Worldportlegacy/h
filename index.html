@@ -613,6 +613,24 @@ function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 var SUPABASE_DEFAULT_URL = 'https://xgdsetqbleomrjcicfwm.supabase.co';
 var SUPABASE_DEFAULT_KEY = 'sb_publishable_BQskikAwxrMlsrh25Twj4Q_PcMx4Ju-';
 
+/* Si Supabase responde 401 (llave no válida), reintenta una vez cambiando la forma de enviar la llave:
+   con o sin la cabecera Authorization. Algunas llaves "publishable" solo funcionan sin ella. */
+(function(){
+  var orig = window.fetch;
+  window.fetch = async function(u, o){
+    var r = await orig.call(this, u, o);
+    try{
+      if(r.status === 401 && typeof u === 'string' && u.indexOf('.supabase.co/') > -1 && o && o.headers && o.headers.apikey){
+        var h = {}, k; for(k in o.headers) h[k] = o.headers[k];
+        if(h.Authorization) delete h.Authorization; else h.Authorization = 'Bearer ' + h.apikey;
+        var o2 = {}; for(k in o) o2[k] = o[k]; o2.headers = h;
+        var r2 = await orig.call(this, u, o2);
+        if(r2.status !== 401) return r2;
+      }
+    }catch(e){}
+    return r;
+  };
+})();
 var CFG_KEY = 'wpl_cfg_v1', SRV = {ok:false, info:null};
 function loadCfg(){
   var d = {api:'', supaUrl:'', supaKey:'', pubToken:'', author:''};
