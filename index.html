@@ -1289,7 +1289,9 @@ async function why(r){
   return '(' + r.status + (d ? ' · ' + d.slice(0, 110) : '') + ')';
 }
 function delBtn(kind, id, oh){
-  if(!(ADM.on || (MYH && oh && oh === MYH))) return '';
+  /* encuestas y anuncios: solo el admin los borra; comentarios y mapas: su autor o el admin */
+  var own = (kind == 'c' || kind == 'm') && MYH && oh && oh === MYH;
+  if(!(ADM.on || own)) return '';
   return '<button class="btn sm del" type="button" data-del="'+kind+'" data-did="'+id+'">Borrar</button>';
 }
 function rerenderAll(){ if(FB.items) renderFb(); if(PO.items) renderPo(); if(LIB.items) renderMaps(); if(AN.items) renderAn(); }
@@ -1309,7 +1311,7 @@ async function delItem(b){
       /* borra los archivos (mapa e imagen) ya autorizados por la base de datos */
       var ps = res.paths || [], k;
       for(k = 0; k < ps.length; k++){
-        try{ await fetch(c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + ps[k].split('/').map(encodeURIComponent).join('/'), {method:'DELETE', headers:{apikey:c.key, Authorization:'Bearer ' + c.key}}); }catch(e){}
+        try{ await fetch(c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + ps[k].split('/').map(encodeURIComponent).join('/'), {method:'DELETE', headers:storageHeaders(c, keyIsJwt(c))}); }catch(e){}
       }
     }else if(res !== true){ toast('No tienes permiso para borrar eso.'); return; }
     toast('Borrado.');
@@ -1519,15 +1521,31 @@ function xhrPost(url, headers, blob, onprog){
     x.send(blob);
   });
 }
-async function storagePut(c, path, blob, type, onprog){
+function storageHeaders(c, withAuth, extra){
+  var h = {apikey:c.key}, k;
+  if(withAuth) h.Authorization = 'Bearer ' + c.key;
+  for(k in (extra || {})) h[k] = extra[k];
+  return h;
+}
+/* las llaves nuevas (sb_publishable_...) no son JWT: se mandan solo en "apikey". Las viejas (eyJ...) también en Authorization. */
+function keyIsJwt(c){ return String(c.key).indexOf('eyJ') === 0; }
+async function storagePut(c, path, blob, type, onprog, label){
   var url = c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + path.split('/').map(encodeURIComponent).join('/');
-  var h = {apikey:c.key, Authorization:'Bearer ' + c.key, 'Content-Type':type, 'x-upsert':'false'};
-  var r = await xhrPost(url, h, blob, onprog);
-  if(r.status == 400 || r.status == 401){ delete h.Authorization; r = await xhrPost(url, h, blob, onprog); }
+  var auth = keyIsJwt(c), r;
+  try{
+    r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':type, 'x-upsert':'false'}), blob, onprog);
+    if(r.status == 400 || r.status == 401){
+      auth = !auth;
+      r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':type, 'x-upsert':'false'}), blob, onprog);
+    }
+  }catch(e){
+    throw new Error('Se cortó la conexión al subir ' + (label || 'el archivo') + ' (' + human(blob.size) + '). Prueba de nuevo o con una red más estable.');
+  }
   if(r.status < 200 || r.status >= 300){
     var d = ''; try{ var j = JSON.parse(r.text); d = ((j.error || '') + ' ' + (j.message || '')).trim(); }catch(e){}
     if(/mime/i.test(r.text)) throw new Error('Supabase no deja subir ese tipo de archivo. Falta correr el SQL que permite imágenes en la biblioteca.');
-    throw new Error('No se pudo subir el archivo (' + r.status + (d ? ' · ' + d.slice(0, 100) : '') + ').');
+    if(r.status == 413) throw new Error('El archivo pesa más de lo que permite tu proyecto de Supabase.');
+    throw new Error('No se pudo subir ' + (label || 'el archivo') + ' (' + r.status + (d ? ' · ' + d.slice(0, 100) : '') + ').');
   }
 }
 function upBar(frac){
@@ -1552,8 +1570,8 @@ async function sendUp(){
   var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   var zipPath = 'comunidad/' + id + '.' + ext, imgPath = 'comunidad/' + id + '.jpg', total = f.size + UP.img.size;
   try{
-    await storagePut(c, imgPath, UP.img, 'image/jpeg', function(l){ upBar(l / total); });
-    await storagePut(c, zipPath, f, types[ext], function(l){ upBar((UP.img.size + l) / total); });
+    await storagePut(c, imgPath, UP.img, 'image/jpeg', function(l){ upBar(l / total); }, 'la imagen');
+    await storagePut(c, zipPath, f, types[ext], function(l){ upBar((UP.img.size + l) / total); }, 'el mapa');
     var r = await fetch(c.url + '/rest/v1/rpc/publicar_mapa', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_name:name.slice(0, 60), p_author:author.slice(0, 40), p_description:desc.slice(0, 200), p_source:(ver || 'Comunidad').slice(0, 30), p_storage_path:zipPath, p_image_path:imgPath, p_size:f.size, p_device:deviceId()})});
     if(!r.ok) throw new Error('No se pudo publicar el mapa ' + await why(r) + '.');
     UP.last = Date.now(); CFG.author = author; saveCfg();
