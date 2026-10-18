@@ -610,7 +610,7 @@ Listo ✓</pre>
     <div class="f"><label class="l" for="up_author">Hecho por</label><input type="text" id="up_author" maxlength="40" placeholder="Tu nombre" autocomplete="off"></div>
     <div class="f"><label class="l" for="up_ver">Versión o tipo (opcional)</label><input type="text" id="up_ver" maxlength="30" placeholder="Ej.: Java 1.12" autocomplete="off"></div>
     <div class="f"><label class="l" for="up_desc">Descripción (opcional)</label><textarea id="up_desc" maxlength="200" placeholder="Cuenta cómo es el mapa"></textarea></div>
-    <div class="f"><label class="l" for="up_file">Archivo del mapa (.zip, .rar o .7z, máx. 50 MB)</label><input type="file" id="up_file" accept=".zip,.rar,.7z"><div class="up-info" id="up_info" hidden></div></div>
+    <div class="f"><label class="l" for="up_file">Archivo del mapa (solo .zip con la carpeta del mundo, máx. 50 MB)</label><input type="file" id="up_file" accept=".zip,application/zip"><div class="up-info" id="up_info" hidden></div></div>
     <div class="f"><label class="l" for="up_img">Imagen del mapa</label><input type="file" id="up_img" accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,.svg,.tif,.tiff"><img id="up_prev" class="upl-prev" alt="" hidden></div>
     <div class="bar" id="up_bar" hidden><i></i></div>
     <div class="acts"><button class="btn p" id="up_send" type="button">Subir mapa</button></div>
@@ -1122,6 +1122,34 @@ async function loadLib(force){
     box.innerHTML = '<div class="empty">'+esc(e instanceof TypeError ? 'No se pudo cargar la biblioteca por ahora. Intenta de nuevo en un momento.' : e.message)+'</div>';
   }
 }
+/* Admin: abre el .zip guardado, muestra qué trae y, si tiene archivos que no son del mundo (index.html, etc.), lo limpia y lo reemplaza. */
+async function checkMap(btn){
+  var id = btn.getAttribute('data-check'), c = supa(), old = btn.textContent;
+  var m = (LIB.items || []).filter(function(x){ return String(x.id) === id; })[0];
+  if(!m || !ADM.on) return;
+  btn.disabled = true; btn.textContent = 'Revisando…';
+  try{
+    var r;
+    try{ r = await fetch(pubUrl(c, m.storage_path)); }catch(e){ throw new Error('El navegador no pudo leer el archivo del mapa (conexión o permisos CORS).'); }
+    if(!r.ok) throw new Error('No se pudo leer el archivo del mapa (' + r.status + ').');
+    var buf = await r.arrayBuffer(), names = zipEntries(buf);
+    if(!names) throw new Error('Ese .zip no se puede leer.');
+    var cl = null; try{ cl = zipClean(buf); }catch(e){}
+    var sm = zipSummary(names);
+    if(!cl){ toast('Está limpio ✓  Dentro: ' + sm.txt); return; }
+    if(!confirm('Este mapa trae cosas que no son del mundo: ' + cl.removed.slice(0, 5).join(', ') + '.\n\n¿Limpiarlo ahora? (queda solo la carpeta del mapa)')) return;
+    btn.textContent = 'Limpiando…';
+    var np = 'comunidad/' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8) + '.zip';
+    await storagePut(c, np, cl.blob, 'application/zip', null, 'el mapa limpio');
+    var rr = await fetch(c.url + '/rest/v1/rpc/reemplazar_mapa_zip', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_id:String(m.id), p_path:np, p_size:cl.blob.size, p_clave:ADM.clave})});
+    if(!rr.ok) throw new Error('No se pudo actualizar el mapa ' + await why(rr) + '. ¿Ya corriste el SQL de Supabase?');
+    var oldp = await rr.json();
+    if(!oldp){ toast('No se pudo reemplazar el mapa.'); return; }
+    try{ await fetch(c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + oldp.split('/').map(encodeURIComponent).join('/'), {method:'DELETE', headers:storageHeaders(c, keyIsJwt(c))}); }catch(e){}
+    toast('Mapa limpio ✓'); loadLib(true);
+  }catch(e){ toast(e.message); }
+  finally{ btn.disabled = false; btn.textContent = old; }
+}
 function renderMaps(){
   var c = supa(), term = $('q').value.trim().toLowerCase(), items = LIB.items || [];
   var l = items.filter(function(m){ return (m.name+' '+m.description+' '+m.author+' '+m.source).toLowerCase().indexOf(term) > -1; });
@@ -1132,13 +1160,14 @@ function renderMaps(){
     return '<div class="map">'
       + (m.image_path ? '<div class="mapimg"><img loading="lazy" alt="Imagen de '+esc(m.name)+'" src="'+esc(pubUrl(c, m.image_path))+'"></div>' : '')
       + '<div><h3>'+esc(m.name)+'</h3>'+(m.description ? '<p>'+esc(m.description)+'</p>' : '')+'<small>'+esc(meta)+(m.author ? ' · por '+esc(m.author) : '')+'</small></div>'
-      + '<div class="mapbtns"><a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+ext))+'" download>Descargar</a>'+delBtn('m', m.id, m.owner_hash)+'</div></div>';
+      + '<div class="mapbtns"><a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+ext))+'" download>Descargar</a>'+(ADM.on && /\.zip$/i.test(m.storage_path || '') ? '<button class="btn sm" type="button" data-check="'+esc(m.id)+'">Revisar</button>' : '')+delBtn('m', m.id, m.owner_hash)+'</div></div>';
   }).join('') : '<div class="empty">No hay mapas con ese nombre.</div>';
 }
 $('q').oninput = renderMaps;
 $('lr').onclick = function(){ loadLib(true); };
 $('maps').addEventListener('click', function(e){
   var dl = e.target.closest('[data-del]'); if(dl){ delItem(dl); return; }
+  var ck = e.target.closest('[data-check]'); if(ck){ checkMap(ck); return; }
   var a = e.target.closest('[data-dl]'); if(!a) return;
   /* no se toca el enlace: el navegador lo descarga solo, igual que el botón del convertidor. El contador va aparte y después. */
   var c = supa(), mid = a.dataset.dl;
@@ -1475,7 +1504,7 @@ visitCount();
 /* =====================================================================
    Subir mapas a la biblioteca (Storage + función publicar_mapa)
    ===================================================================== */
-var UP = {busy:false, last:0, img:null, zip:null, zipFor:null, warnHtml:false};
+var UP = {busy:false, last:0, img:null, zip:null, zipFor:null, warnHtml:false, noWorld:false};
 /* lista lo que trae un .zip (sin descomprimirlo): lee el índice que va al final del archivo */
 function zipEntries(buf){
   var v = new DataView(buf), n = v.byteLength, i, eocd = -1;
@@ -1514,12 +1543,15 @@ function zipClean(buf){
   var nested = roots.filter(function(r){ return r !== ''; });
   var junk = function(nm){ return /^__MACOSX\//.test(nm) || /(^|\/)(\.DS_Store|Thumbs\.db|desktop\.ini)$/i.test(nm); };
   var web = function(nm){ return nm.indexOf('/') < 0 && /\.(html?|js|css|map|php|webmanifest)$/i.test(nm); };
+  var hasFolders = ents.some(function(e){ return e.name.indexOf('/') > 0; });
   var keep = [], removed = [];
   ents.forEach(function(e){
     var isDir = /\/$/.test(e.name), ok;
     if(junk(e.name)) ok = false;
-    else if(nested.length && nested.length === roots.length) ok = nested.some(function(r){ return e.name.indexOf(r) === 0; });
-    else ok = !web(e.name);                       /* el mundo está en la raíz del .zip: solo se quitan los archivos web sueltos */
+    else if(roots.indexOf('') > -1) ok = !web(e.name);                       /* el mundo está en la raíz del .zip: solo se quitan los archivos web sueltos */
+    else if(nested.length) ok = nested.some(function(r){ return e.name.indexOf(r) === 0; });   /* el mundo está en una carpeta: solo se queda esa carpeta */
+    else if(hasFolders) ok = e.name.indexOf('/') > 0;                         /* sin level.dat: se queda lo que está dentro de carpetas y se quitan los archivos sueltos de la raíz */
+    else ok = !web(e.name);
     if(ok) keep.push(e); else if(!isDir) removed.push(e.name);
   });
   if(!removed.length || !keep.length) return null;
@@ -1548,7 +1580,7 @@ function zipSummary(names){
     var first = nm.split('/')[0], isDir = nm.indexOf('/') > -1;
     if(!first) return;
     var key = isDir ? first + '/' : first;
-    if(!top[key]){ top[key] = 0; order.push(key); }
+    if(!Object.prototype.hasOwnProperty.call(top, key)){ top[key] = 0; order.push(key); }
     if(!/\/$/.test(nm)) top[key]++;
   });
   var html = order.filter(function(k){ return /\.html?$/i.test(k); });
@@ -1557,14 +1589,17 @@ function zipSummary(names){
 }
 $('up_author').value = CFG.author || '';
 $('up_file').onchange = async function(){
-  UP.zip = null; UP.zipFor = null; UP.warnHtml = false; $('up_info').hidden = true;
+  UP.zip = null; UP.zipFor = null; UP.warnHtml = false; UP.noWorld = false; $('up_info').hidden = true;
   var f = this.files && this.files[0]; if(!f) return;
+  if(!/\.zip$/i.test(f.name)){ toast('El mapa debe ser un .zip con la carpeta del mundo.'); this.value = ''; return; }
   try{
     var buf = await f.arrayBuffer();
     UP.zip = new Blob([buf], {type:'application/octet-stream'}); UP.zipFor = f; UP.warnHtml = false;
     var info = $('up_info'); info.hidden = true; info.className = 'up-info';
     if(/\.zip$/i.test(f.name)){
       var names = zipEntries(buf), cleaned = null;
+      if(!names){ toast('No pude leer ese .zip. ¿Está dañado? Vuelve a comprimir la carpeta del mapa.'); this.value = ''; UP.zip = null; UP.zipFor = null; return; }
+      UP.noWorld = !names.some(function(nm){ return /(^|\/)level\.dat$/i.test(nm); });
       try{ cleaned = zipClean(buf); }catch(e){ cleaned = null; }
       if(cleaned){ UP.zip = cleaned.blob; names = cleaned.names; }          /* se sube solo el mundo, igual que el convertidor */
       if(names){
@@ -1575,6 +1610,7 @@ $('up_file').onchange = async function(){
           UP.warnHtml = true; info.classList.add('warn');
           info.textContent += '. Ojo: trae ' + sm.html.join(', ') + ' suelto junto a la carpeta del mapa. Si no lo quieres, vuelve a comprimir solo la carpeta del mapa.';
         }
+        if(UP.noWorld){ info.classList.add('warn'); info.textContent += '. No encontré level.dat: el .zip debe traer la carpeta del mundo.'; }
         info.hidden = false;
       }
     }
@@ -1679,15 +1715,16 @@ async function sendUp(){
   if(name.length < 3){ toast('Ponle un nombre al mapa (mínimo 3 letras).'); return; }
   if(!author){ toast('Pon quién lo hizo.'); return; }
   if(!f){ toast('Elige el archivo del mapa.'); return; }
-  var em = f.name.match(/\.(zip|rar|7z)$/i);
-  if(!em){ toast('El mapa debe ser .zip, .rar o .7z.'); return; }
+  var em = f.name.match(/\.(zip)$/i);
+  if(!em){ toast('El mapa debe ser un .zip con la carpeta del mundo.'); return; }
+  if(UP.noWorld){ toast('Ese .zip no trae la carpeta del mundo (falta level.dat). Comprime la carpeta del mapa y vuelve a elegirla.'); return; }
   if(f.size > 50 * 1024 * 1024){ toast('El mapa pesa más de 50 MB.'); return; }
   if(!UP.img){ toast('Sube una imagen de cómo es el mapa.'); return; }
   if(!c.url || !c.key){ toast('La biblioteca no está disponible por ahora.'); return; }
   if(Date.now() - UP.last < 30000){ toast('Espera unos segundos antes de subir otro.'); return; }
   if(UP.warnHtml && !confirm('Tu .zip trae un archivo .html suelto junto a la carpeta del mapa (mira el aviso rojo). ¿Subirlo de todos modos?')) return;
   UP.busy = true; $('up_send').disabled = true; $('up_send').textContent = 'Subiendo…'; upBar(0.02);
-  var ext = em[1].toLowerCase(), types = {zip:'application/zip', rar:'application/vnd.rar', '7z':'application/x-7z-compressed'};
+  var ext = 'zip', types = {zip:'application/zip'};
   var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   var zipPath = 'comunidad/' + id + '.' + ext, imgPath = 'comunidad/' + id + '.jpg', total = UP.zip.size + UP.img.size;
   try{
@@ -1697,7 +1734,7 @@ async function sendUp(){
     if(!r.ok) throw new Error('No se pudo publicar el mapa ' + await why(r) + '.');
     UP.last = Date.now(); CFG.author = author; saveCfg();
     ['up_name', 'up_ver', 'up_desc', 'up_file', 'up_img'].forEach(function(k){ $(k).value = ''; });
-    UP.img = null; UP.zip = null; UP.zipFor = null; UP.warnHtml = false; $('up_info').hidden = true; $('up_prev').hidden = true; $('up_bar').hidden = true;
+    UP.img = null; UP.zip = null; UP.zipFor = null; UP.warnHtml = false; UP.noWorld = false; $('up_info').hidden = true; $('up_prev').hidden = true; $('up_bar').hidden = true;
     toast('¡Mapa subido a la biblioteca!');
     loadLib(true);
     try{ $('maps').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
