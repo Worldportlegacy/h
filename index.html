@@ -1119,6 +1119,21 @@ async function loadLib(force){
     box.innerHTML = '<div class="empty">'+esc(e instanceof TypeError ? 'No se pudo cargar la biblioteca por ahora. Intenta de nuevo en un momento.' : e.message)+'</div>';
   }
 }
+async function dlMap(a){
+  var href = a.getAttribute('href'), name = a.getAttribute('data-name') || 'mapa.zip';
+  toast('Descargando ' + name + '…');
+  try{
+    var r = await fetch(href.split('?')[0]);
+    if(!r.ok) throw new Error('http');
+    var u = URL.createObjectURL(await r.blob()), x = document.createElement('a');
+    x.href = u; x.download = name; x.style.display = 'none'; document.body.appendChild(x); x.click();
+    setTimeout(function(){ document.body.removeChild(x); URL.revokeObjectURL(u); }, 4000);
+    toast('Listo: ' + name);
+  }catch(e){
+    /* respaldo: descarga directa desde Supabase */
+    window.location.href = href;
+  }
+}
 function renderMaps(){
   var c = supa(), term = $('q').value.trim().toLowerCase(), items = LIB.items || [];
   var l = items.filter(function(m){ return (m.name+' '+m.description+' '+m.author+' '+m.source).toLowerCase().indexOf(term) > -1; });
@@ -1129,7 +1144,7 @@ function renderMaps(){
     return '<div class="map">'
       + (m.image_path ? '<div class="mapimg"><img loading="lazy" alt="Imagen de '+esc(m.name)+'" src="'+esc(pubUrl(c, m.image_path))+'"></div>' : '')
       + '<div><h3>'+esc(m.name)+'</h3>'+(m.description ? '<p>'+esc(m.description)+'</p>' : '')+'<small>'+esc(meta)+(m.author ? ' · por '+esc(m.author) : '')+'</small></div>'
-      + '<div class="mapbtns"><a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+ext))+'" download="'+esc(m.name)+esc(ext)+'" rel="noopener">Descargar</a>'+delBtn('m', m.id, m.owner_hash)+'</div></div>';
+      + '<div class="mapbtns"><a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+ext))+'" data-name="'+esc(m.name)+esc(ext)+'" rel="noopener">Descargar</a>'+delBtn('m', m.id, m.owner_hash)+'</div></div>';
   }).join('') : '<div class="empty">No hay mapas con ese nombre.</div>';
 }
 $('q').oninput = renderMaps;
@@ -1137,6 +1152,7 @@ $('lr').onclick = function(){ loadLib(true); };
 $('maps').addEventListener('click', function(e){
   var dl = e.target.closest('[data-del]'); if(dl){ delItem(dl); return; }
   var a = e.target.closest('[data-dl]'); if(!a) return;
+  e.preventDefault(); dlMap(a);
   var c = supa();
   fetch(c.url + '/rest/v1/rpc/increment_downloads', {method:'POST', headers:{apikey:c.key, Authorization:'Bearer '+c.key, 'Content-Type':'application/json'}, body:JSON.stringify({map_id:a.dataset.dl}), keepalive:true}).catch(function(){});
   LIB.at = 0;
