@@ -493,6 +493,39 @@ a.btn{text-decoration:none}
 .sec.first{margin-top:0}
 .libtop+#maps{margin-top:0}
 #maps+.sec{margin-top:56px}
+
+/* ===== más aire (menos pegado) ===== */
+.btn[hidden],.sec[hidden]{display:none}
+main{padding:38px 22px 56px}
+.pagehead{margin-bottom:44px}
+.pagehead p{margin-top:10px}
+.fb-tabs{margin-bottom:40px;gap:10px}
+.sec{margin-top:78px}
+.sec.first{margin-top:0}
+.sec>h2{margin-bottom:30px}
+.card{padding:30px 26px}
+.f{margin-bottom:28px}
+.acts{gap:16px;margin-top:36px}
+.listbar{margin-bottom:30px;gap:14px}
+.listbar>span{font-size:22px}
+.fb .h{margin-bottom:20px}
+.fb p{line-height:1.3;margin:0}
+.fb-foot{margin-top:24px}
+.fb-thread{margin-bottom:40px}
+.fb-thread>.fb.rep{margin:20px 0 0 22px}
+#polist>.fb,#anlist>.fb{margin-bottom:38px}
+.po-vote{margin-top:22px}
+.po-bars{gap:12px;margin-top:22px}
+.map{padding:28px 24px;margin-bottom:38px;gap:22px}
+.map h3{margin-bottom:14px}
+.map p{margin:6px 0 14px}
+.libtop{margin-bottom:34px}
+#maps+.sec{margin-top:78px}
+.warns>.card{margin-bottom:38px}
+.empty{padding:34px 24px}
+.adm-bar{margin-bottom:34px;padding:12px 16px}
+#adm_box{margin-bottom:38px}
+.foot{margin-top:72px}
 </style></head><body>
 
 <header class="top"><a class="brand" href="#inicio" data-v="inicio"><i></i>World Port Legacy</a></header>
@@ -616,8 +649,7 @@ Listo ✓</pre>
 
   <div id="fb_pane">
     <section class="sec first">
-      <h2>Comentarios</h2>
-      <div class="listbar"><span id="fb_count"></span><div class="lbtns"><button class="btn sm" id="fb_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="fbform">Escribir</button></div></div>
+            <div class="listbar"><span id="fb_count"></span><div class="lbtns"><button class="btn sm" id="fb_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="fbform">Escribir</button></div></div>
       <div id="fblist"></div>
     </section>
     <section class="sec">
@@ -634,15 +666,13 @@ Listo ✓</pre>
 
   <div id="po_pane" hidden>
     <section class="sec first">
-      <h2>Encuestas</h2>
-      <div class="listbar"><span id="po_count"></span><div class="lbtns"><button class="btn sm" id="po_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="poform">Publicar</button></div></div>
+            <div class="listbar"><span id="po_count"></span><div class="lbtns"><button class="btn sm" id="po_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="poform" id="po_goto" hidden>Publicar</button></div></div>
       <div id="polist"></div>
     </section>
-    <section class="sec">
+    <section class="sec" id="po_formsec" hidden>
       <h2>Nueva encuesta</h2>
       <div class="card" id="poform">
         <div class="f"><label class="l" for="po_name">Tu nombre</label><input type="text" id="po_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
-        <div class="f" id="po_pwbox"><label class="l" for="po_pw">Contraseña para publicar</label><input type="password" id="po_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
         <div class="f"><label class="l" for="po_q">Pregunta (se responde Sí o No)</label><textarea id="po_q" maxlength="200" placeholder="Ej.: ¿Quieren que agreguemos más mapas?"></textarea><span class="fb-count" id="po_cnt">0 / 200</span></div>
         <div class="acts"><button class="btn p" id="po_send" type="button">Publicar encuesta</button></div>
       </div>
@@ -651,16 +681,14 @@ Listo ✓</pre>
 
   <div id="an_pane" hidden>
     <section class="sec first">
-      <h2>Anuncios</h2>
-      <div class="listbar"><span id="an_count"></span><div class="lbtns"><button class="btn sm" id="an_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="anform">Publicar</button></div></div>
+            <div class="listbar"><span id="an_count"></span><div class="lbtns"><button class="btn sm" id="an_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="anform" id="an_goto" hidden>Publicar</button></div></div>
       <div id="anlist"></div>
     </section>
-    <section class="sec">
+    <section class="sec" id="an_formsec" hidden>
       <h2>Nuevo anuncio</h2>
       <div class="card" id="anform">
         <div class="f"><label class="l" for="an_title">Título</label><input type="text" id="an_title" maxlength="80" placeholder="Ej.: Nuevo mapa en la biblioteca" autocomplete="off"></div>
         <div class="f"><label class="l" for="an_body">Mensaje</label><textarea id="an_body" maxlength="600" placeholder="Cuenta qué hay de nuevo…"></textarea></div>
-        <div class="f" id="an_pwbox"><label class="l" for="an_pw">Contraseña para publicar</label><input type="password" id="an_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
         <div class="acts"><button class="btn p" id="an_send" type="button">Publicar anuncio</button></div>
       </div>
     </section>
@@ -1293,7 +1321,8 @@ function admUI(){
   $('adm_btn').textContent = ADM.on ? 'Admin ✓' : 'Admin';
   $('adm_btn').classList.toggle('on', ADM.on);
   if(ADM.on) $('adm_box').hidden = true;
-  $('po_pwbox').hidden = ADM.on; $('an_pwbox').hidden = ADM.on;
+  $('po_formsec').hidden = !ADM.on; $('an_formsec').hidden = !ADM.on;
+  $('po_goto').hidden = !ADM.on; $('an_goto').hidden = !ADM.on;
 }
 $('adm_btn').onclick = function(){
   if(ADM.on){ ADM.on = false; ADM.clave = ''; admUI(); toast('Saliste del modo admin.'); rerenderAll(); return; }
@@ -1377,8 +1406,8 @@ async function sendPo(){
   var name = $('po_name').value.trim(), q = $('po_q').value.trim(), c = supa();
   if(!name){ toast('Pon tu nombre.'); return; }
   if(q.length < 3){ toast('Escribe una pregunta un poco más larga.'); return; }
-  var pw = ADM.on ? ADM.clave : $('po_pw').value;
-  if(!pw){ toast('Escribe la contraseña para publicar.'); return; }
+  var pw = ADM.clave;
+  if(!ADM.on || !pw){ toast('Entra como admin para publicar encuestas.'); return; }
   if(!c.url || !c.key){ toast('Las encuestas no están disponibles por ahora.'); return; }
   if(Date.now() - PO.last < 15000){ toast('Espera unos segundos antes de publicar otra.'); return; }
   PO.busy = true; $('po_send').disabled = true; $('po_send').textContent = 'Publicando…';
@@ -1388,7 +1417,7 @@ async function sendPo(){
     var okp = await r.json();
     if(okp !== true){ toast('Contraseña incorrecta.'); return; }
     PO.last = Date.now(); CFG.author = name; saveCfg();
-    $('po_q').value = ''; $('po_pw').value = ''; $('po_cnt').textContent = '0 / 200';
+    $('po_q').value = ''; $('po_cnt').textContent = '0 / 200';
     toast('¡Encuesta publicada!');
     loadPo(true);
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo publicar. Revisa tu conexión.' : e.message); }
@@ -1497,6 +1526,7 @@ async function storagePut(c, path, blob, type, onprog){
   if(r.status == 400 || r.status == 401){ delete h.Authorization; r = await xhrPost(url, h, blob, onprog); }
   if(r.status < 200 || r.status >= 300){
     var d = ''; try{ var j = JSON.parse(r.text); d = ((j.error || '') + ' ' + (j.message || '')).trim(); }catch(e){}
+    if(/mime/i.test(r.text)) throw new Error('Supabase no deja subir ese tipo de archivo. Falta correr el SQL que permite imágenes en la biblioteca.');
     throw new Error('No se pudo subir el archivo (' + r.status + (d ? ' · ' + d.slice(0, 100) : '') + ').');
   }
 }
@@ -1566,16 +1596,16 @@ $('anlist').addEventListener('click', function(e){
 });
 $('an_send').onclick = async function(){
   if(AN.busy) return;
-  var t = $('an_title').value.trim(), b = $('an_body').value.trim(), pw = ADM.on ? ADM.clave : $('an_pw').value, c = supa();
+  var t = $('an_title').value.trim(), b = $('an_body').value.trim(), pw = ADM.clave, c = supa();
   if(t.length < 3){ toast('Escribe un título (mínimo 3 letras).'); return; }
   if(b.length < 3){ toast('Escribe el mensaje del anuncio.'); return; }
-  if(!pw){ toast('Escribe la contraseña para publicar.'); return; }
+  if(!ADM.on || !pw){ toast('Entra como admin para publicar anuncios.'); return; }
   AN.busy = true; $('an_send').disabled = true; $('an_send').textContent = 'Publicando…';
   try{
     var r = await fetch(c.url + '/rest/v1/rpc/crear_anuncio', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_title:t.slice(0, 80), p_body:b.slice(0, 600), p_clave:pw})});
     if(!r.ok) throw new Error('No se pudo publicar ' + await why(r) + '. ¿Ya corriste el SQL de Supabase?');
     if((await r.json()) !== true){ toast('Contraseña incorrecta.'); return; }
-    $('an_title').value = ''; $('an_body').value = ''; $('an_pw').value = '';
+    $('an_title').value = ''; $('an_body').value = '';
     toast('¡Anuncio publicado!'); loadAn(true);
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo publicar. Revisa tu conexión.' : e.message); }
   finally{ AN.busy = false; $('an_send').disabled = false; $('an_send').textContent = 'Publicar anuncio'; }
