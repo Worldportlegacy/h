@@ -421,6 +421,118 @@ textarea::placeholder{color:#8B8B8B}
 .fb small{display:block;margin-top:6px;color:var(--hint);font:400 19px var(--vt)}
 .fb.bug{border-left:12px solid #E5392A}.fb.sug{border-left:12px solid var(--neon2)}
 .tag.bug{background:#B52C1B}
+
+/* ===== aire y orden (menos saturado) ===== */
+main{padding:34px 20px 44px}
+.pagehead{margin-bottom:36px}
+.sec{margin-top:64px}
+.sec.first{margin-top:0}
+.sec>h2{margin-bottom:26px}
+.card{padding:26px 22px}
+.f{margin-bottom:24px}
+.acts{gap:14px;margin-top:30px}
+.warns>.card{margin-bottom:26px}
+.warns>.card:last-child{margin-bottom:0}
+.libtop{gap:12px;margin-bottom:22px}
+.libact{margin:0 0 30px}
+#upform{margin-bottom:38px}
+.map{padding:22px 20px;margin-bottom:30px;gap:18px}
+.map h3{margin-bottom:12px;line-height:1.5}
+.map p{margin:4px 0 12px;line-height:1.25}
+.map small{line-height:1.3}
+.fb-tabs{margin-bottom:12px}
+.listbar{margin-bottom:22px}
+.fb-thread{margin-bottom:34px}
+.fb-thread>.fb{margin-bottom:0}
+.fb-thread>.fb.rep{margin:16px 0 0 18px}
+#polist>.fb,#anlist>.fb{margin-bottom:30px}
+.fb .h{margin-bottom:14px}
+.fb p{line-height:1.25}
+.fb-foot{margin-top:18px}
+.po-vote{margin-top:18px}
+.po-bars{gap:10px;margin-top:18px}
+.adm-bar{margin-bottom:26px}
+.adm-wrap{margin-top:56px}
+.empty{padding:28px 22px;line-height:1.3}
+.foot{margin-top:60px;line-height:1.35}
+.fb-count{margin-top:8px}
+/* biblioteca: imagen y subida */
+.mapimg{width:100%;aspect-ratio:16/9;background:#000;border:3px solid #000;overflow:hidden}
+.mapimg img{display:block;width:100%;height:100%;object-fit:cover}
+.mapbtns{display:flex;gap:10px;flex-wrap:wrap;align-self:stretch}
+.mapbtns .btn{flex:1;margin:0;min-width:0}
+.upl-prev{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:3px solid #000;margin-top:12px;background:#000}
+.upl-prev[hidden],#upform[hidden],#anform[hidden]{display:none}
+input[type=file]{display:block;width:100%;padding:6px 0;color:var(--ink);font:400 20px var(--vt)}
+#up_desc,#an_body{min-height:100px}
+#anform{margin-bottom:30px}
+.up-info{margin-top:12px;font:400 20px/1.35 var(--vt);color:var(--hint);overflow-wrap:anywhere}
+.up-info.warn{color:#B52C1B}
+.up-info[hidden]{display:none}
+.fb.an{border-left:12px solid #FFD83A}
+
+/* admin: un solo botón */
+.adm-top{position:fixed;z-index:215;top:calc(env(safe-area-inset-top,0px) + 9px);right:62px;height:42px;padding:0 12px;display:flex;align-items:center;justify-content:center;border:3px solid #000;background:var(--slot-d);color:#fff;box-shadow:inset 3px 3px 0 #6e6e6e,inset -3px -3px 0 #1f1f1f;font:400 20px/1 var(--vt);text-shadow:2px 2px #3F3F3F;cursor:pointer}
+.adm-top:hover{background:#4c4c4c;box-shadow:inset 3px 3px 0 #8a8a8a,inset -3px -3px 0 #262626,0 0 0 2px var(--neon),0 0 14px var(--neon-glow)}
+.adm-top.on{background:#5a4a00;color:#FFD83A;box-shadow:inset 3px 3px 0 #FFD83A,inset -3px -3px 0 #3a3000,0 0 14px rgba(255,216,58,.5)}
+@media(min-width:901px){.adm-top{top:auto;right:auto;left:14px;bottom:86px;width:212px;height:54px;font-size:24px}}
+#adm_box{margin-bottom:30px}
+#adm_box[hidden]{display:none}
+.fb-tabs{grid-template-columns:repeat(3,1fr);gap:8px}
+.fb-tabs .btn{font-size:17px;padding:9px 0;letter-spacing:-.3px}
+
+/* ===== botones iguales (sin deformaciones) ===== */
+.btn{box-sizing:border-box}
+a.btn{text-decoration:none}
+.lbtns{display:flex;gap:8px;flex:none}
+.lbtns .btn{height:40px;padding:0 14px;font-size:19px;line-height:1;margin:0}
+.mapbtns{display:flex;gap:10px;align-self:stretch}
+.mapbtns>.btn,.mapbtns>a.btn{flex:1 1 0;min-width:0;height:46px;padding:0 10px;margin:0;font-size:20px;line-height:1;align-self:auto}
+.fb-btns .btn{height:40px;padding:0 14px;font-size:18px;line-height:1;margin:0}
+.po-vote .btn{height:50px;padding:0 10px;font-size:20px;line-height:1}
+.acts .btn{min-height:48px}
+.fb-tabs .btn{height:46px;padding:0}
+.listbar{flex-wrap:wrap}
+.sec.first{margin-top:0}
+.libtop+#maps{margin-top:0}
+#maps+.sec{margin-top:56px}
+
+/* ===== más aire (menos pegado) ===== */
+.btn[hidden],.sec[hidden]{display:none}
+main{padding:38px 22px 56px}
+.pagehead{margin-bottom:44px}
+.pagehead p{margin-top:10px}
+.fb-tabs{margin-bottom:40px;gap:10px}
+.sec{margin-top:78px}
+.sec.first{margin-top:0}
+.sec>h2{margin-bottom:30px}
+.card{padding:30px 26px}
+.f{margin-bottom:28px}
+.acts{gap:16px;margin-top:36px}
+.listbar{margin-bottom:30px;gap:14px}
+.listbar>span{font-size:22px}
+.fb .h{margin-bottom:20px}
+.fb p{line-height:1.3;margin:0}
+.fb-foot{margin-top:24px}
+.fb-thread{margin-bottom:40px}
+.fb-thread>.fb.rep{margin:20px 0 0 22px}
+#polist>.fb,#anlist>.fb{margin-bottom:38px}
+.po-vote{margin-top:22px}
+.po-bars{gap:12px;margin-top:22px}
+.map{padding:28px 24px;margin-bottom:38px;gap:22px}
+.map h3{margin-bottom:14px}
+.map p{margin:6px 0 14px}
+.libtop{margin-bottom:34px}
+#maps+.sec{margin-top:78px}
+.warns>.card{margin-bottom:38px}
+.empty{padding:34px 24px}
+.adm-bar{margin-bottom:34px;padding:12px 16px}
+#adm_box{margin-bottom:38px}
+.foot{margin-top:72px}
+
+/* etiqueta pequeña "NUEVO" sobre la esquina de una pestaña de herramienta (no cambia el diseño) */
+.tool{position:relative}
+.ntag{position:absolute;top:-4px;left:-3px;padding:2px 4px;background:#FCDB05;color:#000;border:2px solid #000;font:400 7px/1 var(--px);text-shadow:none;transform:rotate(-6deg);pointer-events:none;z-index:2}
 </style></head><body>
 
 <header class="top"><a class="brand" href="#inicio" data-v="inicio"><i></i>World Port Legacy</a></header>
@@ -437,6 +549,11 @@ textarea::placeholder{color:#8B8B8B}
 </aside>
 
 <main>
+<div class="adm-bar" id="adm_bar" hidden><span>Modo admin activo: puedes borrar todo y publicar sin contraseña. Para salir toca «Admin ✓».</span></div>
+<div class="card" id="adm_box" hidden>
+  <div class="f"><label class="l" for="adm_pw">Contraseña de admin</label><input type="password" id="adm_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
+  <div class="acts"><button class="btn p" id="adm_ok" type="button">Entrar</button><button class="btn" id="adm_cancel" type="button">Cancelar</button></div>
+</div>
 
 <!-- ================= INICIO ================= -->
 <div class="view" id="v-inicio">
@@ -486,6 +603,19 @@ Listo ✓</pre>
   <div class="pagehead"><h1>Biblioteca</h1><p>Mapas guardados por la comunidad.</p></div>
   <div class="libtop"><input type="text" id="q" placeholder="Buscar un mapa" aria-label="Buscar un mapa" autocomplete="off"><button class="btn" id="lr" type="button">Actualizar</button></div>
   <div id="maps"></div>
+  <section class="sec">
+    <h2>Subir un mapa</h2>
+    <div class="card" id="upform">
+    <div class="f"><label class="l" for="up_name">Nombre del mapa</label><input type="text" id="up_name" maxlength="60" placeholder="Ej.: Isla del tesoro" autocomplete="off"></div>
+    <div class="f"><label class="l" for="up_author">Hecho por</label><input type="text" id="up_author" maxlength="40" placeholder="Tu nombre" autocomplete="off"></div>
+    <div class="f"><label class="l" for="up_ver">Versión o tipo (opcional)</label><input type="text" id="up_ver" maxlength="30" placeholder="Ej.: Java 1.12" autocomplete="off"></div>
+    <div class="f"><label class="l" for="up_desc">Descripción (opcional)</label><textarea id="up_desc" maxlength="200" placeholder="Cuenta cómo es el mapa"></textarea></div>
+    <div class="f"><label class="l" for="up_file">Archivo del mapa (solo .zip con la carpeta del mundo, máx. 50 MB)</label><input type="file" id="up_file" accept=".zip,application/zip"><div class="up-info" id="up_info" hidden></div></div>
+    <div class="f"><label class="l" for="up_img">Imagen del mapa</label><input type="file" id="up_img" accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,.svg,.tif,.tiff"><img id="up_prev" class="upl-prev" alt="" hidden></div>
+    <div class="bar" id="up_bar" hidden><i></i></div>
+    <div class="acts"><button class="btn p" id="up_send" type="button">Subir mapa</button></div>
+    </div>
+  </section>
 </div>
 
 <!-- ================= AVISOS ================= -->
@@ -494,7 +624,7 @@ Listo ✓</pre>
   <div class="warns">
     <div class="card r"><h2>Importante</h2>
       <div class="li"><b>Cada mundo mide 128 de alto</b><span>Si tu mapa es más alto, se divide en varias capas (mundos) y no se pierde nada.</span></div>
-      <div class="li"><b>Bedrock todavía no</b><span>Por ahora solo mapas de Java.</span></div></div>
+      <div class="li"><b>Bedrock ya tiene soporte</b><span>Mapas de Java y de Bedrock. Los de Bedrock nuevo se aproximan.</span></div></div>
     <div class="card y"><h2>Cambia en tu mapa</h2>
       <div class="li"><b>Bloques nuevos se aproximan</b><span>Se cambian por uno parecido.</span></div>
       <div class="li"><b>Mundos muy altos</b><span>Se generan varias capas de 128: _capa1 (la más baja), _capa2...</span></div></div>
@@ -514,7 +644,7 @@ Listo ✓</pre>
       <tr><td>Minecraft 26.1 o más nuevo</td><td class="ok">SÍ</td></tr>
       <tr><td>Nether y End</td><td class="ok">SÍ</td></tr>
       <tr><td>Schematics</td><td class="ok">SÍ</td></tr>
-      <tr><td>Bedrock</td><td class="soon">PRÓXIMAMENTE</td></tr>
+      <tr><td>Bedrock / MCPE (db)</td><td class="ok">SÍ</td></tr>
     </table></div>
   </section>
 </div>
@@ -522,12 +652,15 @@ Listo ✓</pre>
 <!-- ================= BUGS Y SUGERENCIAS ================= -->
 <div class="view" id="v-bugs" hidden>
   <div class="pagehead"><h1>Bugs y sugerencias</h1><p>Cuéntanos qué falla o qué te gustaría ver.</p></div>
-  <div class="adm-bar" id="adm_bar" hidden><span>Modo admin activo: puedes borrar todo.</span><button class="btn" id="adm_out" type="button">Salir</button></div>
-  <div class="fb-tabs"><button class="btn p" id="tab_fb" type="button">Comentarios</button><button class="btn" id="tab_po" type="button">Encuestas</button></div>
+  <div class="fb-tabs"><button class="btn p" id="tab_fb" type="button">Comentarios</button><button class="btn" id="tab_po" type="button">Encuestas</button><button class="btn" id="tab_an" type="button">Anuncios</button></div>
 
   <div id="fb_pane">
+    <section class="sec first">
+            <div class="listbar"><span id="fb_count"></span><div class="lbtns"><button class="btn sm" id="fb_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="fbform">Escribir</button></div></div>
+      <div id="fblist"></div>
+    </section>
     <section class="sec">
-      <h2>Escribir</h2>
+      <h2>Escribir un comentario</h2>
       <div class="card" id="fbform">
         <div class="f"><label class="l" for="fb_name">Tu nombre</label><input type="text" id="fb_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
         <div class="fb-reply" id="fb_rep" hidden><span id="fb_rep_t"></span><button class="btn" id="fb_rep_x" type="button">Cancelar</button></div>
@@ -536,34 +669,36 @@ Listo ✓</pre>
         <div class="acts"><button class="btn p" id="fb_send" type="button">Enviar</button></div>
       </div>
     </section>
-    <section class="sec">
-      <h2>Comentarios</h2>
-      <div class="listbar"><span id="fb_count"></span><button class="btn sm" id="fb_ref" type="button">Actualizar</button></div>
-      <div id="fblist"></div>
-    </section>
   </div>
 
   <div id="po_pane" hidden>
-    <section class="sec">
+    <section class="sec first">
+            <div class="listbar"><span id="po_count"></span><div class="lbtns"><button class="btn sm" id="po_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="poform" id="po_goto" hidden>Publicar</button></div></div>
+      <div id="polist"></div>
+    </section>
+    <section class="sec" id="po_formsec" hidden>
       <h2>Nueva encuesta</h2>
       <div class="card" id="poform">
         <div class="f"><label class="l" for="po_name">Tu nombre</label><input type="text" id="po_name" maxlength="40" placeholder="Ej.: Steve" autocomplete="off"></div>
-        <div class="f"><label class="l" for="po_pw">Contraseña para publicar</label><input type="password" id="po_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
         <div class="f"><label class="l" for="po_q">Pregunta (se responde Sí o No)</label><textarea id="po_q" maxlength="200" placeholder="Ej.: ¿Quieren que agreguemos más mapas?"></textarea><span class="fb-count" id="po_cnt">0 / 200</span></div>
         <div class="acts"><button class="btn p" id="po_send" type="button">Publicar encuesta</button></div>
       </div>
     </section>
-    <section class="sec">
-      <h2>Encuestas</h2>
-      <div class="listbar"><span id="po_count"></span><button class="btn sm" id="po_ref" type="button">Actualizar</button></div>
-      <div id="polist"></div>
-    </section>
   </div>
 
-  <button class="adm-link" id="adm_btn" type="button">Entrar como admin</button>
-  <div class="card" id="adm_box" hidden>
-    <div class="f"><label class="l" for="adm_pw">Contraseña de admin</label><input type="password" id="adm_pw" maxlength="60" placeholder="Contraseña" autocomplete="off"></div>
-    <div class="acts"><button class="btn p" id="adm_ok" type="button">Entrar</button><button class="btn" id="adm_cancel" type="button">Cancelar</button></div>
+  <div id="an_pane" hidden>
+    <section class="sec first">
+            <div class="listbar"><span id="an_count"></span><div class="lbtns"><button class="btn sm" id="an_ref" type="button">Actualizar</button><button class="btn sm p" type="button" data-goto="anform" id="an_goto" hidden>Publicar</button></div></div>
+      <div id="anlist"></div>
+    </section>
+    <section class="sec" id="an_formsec" hidden>
+      <h2>Nuevo anuncio</h2>
+      <div class="card" id="anform">
+        <div class="f"><label class="l" for="an_title">Título</label><input type="text" id="an_title" maxlength="80" placeholder="Ej.: Nuevo mapa en la biblioteca" autocomplete="off"></div>
+        <div class="f"><label class="l" for="an_body">Mensaje</label><textarea id="an_body" maxlength="600" placeholder="Cuenta qué hay de nuevo…"></textarea></div>
+        <div class="acts"><button class="btn p" id="an_send" type="button">Publicar anuncio</button></div>
+      </div>
+    </section>
   </div>
 </div>
 <p class="foot">World Port Legacy. Minecraft es una marca de Mojang; este sitio no está afiliado a Mojang ni a Microsoft.</p>
@@ -571,6 +706,7 @@ Listo ✓</pre>
 
 <div class="ground" aria-hidden="true"></div>
 
+<button class="adm-top" id="adm_btn" type="button" aria-label="Admin">Admin</button>
 <audio id="mus-audio" preload="none" loop></audio>
 <button class="mus-btn" id="mus-btn" type="button" aria-label="Música" aria-pressed="false" title="Activar música"><span class="mus-t" id="mus-t">Música: no</span></button>
 
@@ -620,7 +756,7 @@ var SUPABASE_DEFAULT_KEY = 'sb_publishable_BQskikAwxrMlsrh25Twj4Q_PcMx4Ju-';
   window.fetch = async function(u, o){
     var r = await orig.call(this, u, o);
     try{
-      if(r.status === 401 && typeof u === 'string' && u.indexOf('.supabase.co/') > -1 && o && o.headers && o.headers.apikey){
+      if((r.status === 401 || (r.status === 400 && typeof u === 'string' && u.indexOf('/storage/v1/') > -1)) && typeof u === 'string' && u.indexOf('.supabase.co/') > -1 && o && o.headers && o.headers.apikey){
         var h = {}, k; for(k in o.headers) h[k] = o.headers[k];
         if(h.Authorization) delete h.Authorization; else h.Authorization = 'Bearer ' + h.apikey;
         var o2 = {}; for(k in o) o2[k] = o[k]; o2.headers = h;
@@ -642,9 +778,21 @@ var CFG = loadCfg();
 
 var API_DEFAULT_URL = 'https://worldportlegacy-1.onrender.com';
 
+var RT_API = '';
+async function resolveApi(force){
+  if((CFG.api || '').trim()) return;
+  if(RT_API && !force) return;
+  try{
+    var r = await fetch(SUPABASE_DEFAULT_URL + '/rest/v1/server_config?key=eq.api_url&select=value', {
+      headers:{apikey:SUPABASE_DEFAULT_KEY, Authorization:'Bearer ' + SUPABASE_DEFAULT_KEY}, cache:'no-store'});
+    var d = await r.json();
+    if(d && d[0] && d[0].value) RT_API = String(d[0].value).trim().replace(/\/+$/, '');
+  }catch(e){}
+}
 function apiBase(){
   var b = (CFG.api || '').trim().replace(/\/+$/, '');
   if(b) return b;
+  if(RT_API) return RT_API;
   if(location.protocol === 'file:') return 'http://localhost:8080';
   return API_DEFAULT_URL;
 }
@@ -679,7 +827,10 @@ async function checkServer(){
     if(box.className === 'srv') txt.textContent = 'El servidor estaba dormido, despertando… puede tardar hasta un minuto.';
   }, 6000);
   try{
-    var d = await jfetch('/api/health');
+    await resolveApi(false);
+    var d;
+    try{ d = await jfetch('/api/health'); }
+    catch(e1){ await resolveApi(true); d = await jfetch('/api/health'); }
     SRV = {ok:true, info:d};
     box.className = 'srv ok';
     txt.innerHTML = '<b>Servidor conectado</b> · Python ' + esc(d.python) + ' · máximo ' + d.max_upload_mb + ' MB por archivo';
@@ -701,20 +852,28 @@ SP = {k:'sp',t:'xyz',l:'Punto de aparición (spawn)',h:'Vacío = automático.'},
 TRIM = function(l){ return {k:'tr',t:'select',l:l,o:[['','No recortar'],['arriba','Desde arriba'],['abajo','Desde abajo']]}; },
 DIR = function(l){ return {k:'dr',t:'select',l:l,o:[['arriba','Desde arriba'],['abajo','Desde abajo']]}; },
 CK = function(k,l,h){ return {k:k,t:'chk',l:l,h:h}; },
-PUBDESC = {k:'desc',t:'text',l:'Descripción para la biblioteca (opcional)',p:'Ej.: Isla de supervivencia con aldea',s:['pub',true],h:''};
+/* Altura: opciones compartidas por «Mundo Java» y «Mundo Bedrock» (misma lógica en el servidor) */
+YM = {k:'ym',t:'select',l:'Altura (cada mundo mide 128)',o:[['auto','Completo: si pasa de 128 se divide en capas'],['window','Un solo mundo: ventana de 128 (recorta el resto)'],['base','Un solo mundo: elegir qué Y queda en Y=0'],['raw','Un solo mundo: sin desplazar (recorta lo que sobre)']]},
+YB = {k:'yb',t:'number',l:'Y del mapa original que será Y=0',v:40,s:['ym','base']};
 
 function q(s){ return '"' + s + '"'; }
 var T = [
-{id:'world',n:'Mundo Java',h:'Convertir un mundo Java',d:'Sube un mapa Java y recibe un mundo para PocketMine.',
+{id:'world',n:'Mundo Java',h:'Convertir un mundo Java',d:'Sube un mapa de Java y recibe un mundo para PocketMine. Para mapas de Bedrock usa «Mundo Bedrock».',
  g:[['1. Sube el mapa',[{k:'f',t:'file',a:'.zip,.tar.gz,.tgz,.rar,.7z',l:'Carpeta del mundo en .zip',h:'Máximo 500 MB.',max:500}]],
-    ['2. Ajusta el mundo',[NM(),{k:'ym',t:'select',l:'Altura (cada mundo mide 128)',o:[['auto','Completo: si pasa de 128 se divide en capas'],['window','Un solo mundo: ventana de 128 (recorta el resto)'],['base','Un solo mundo: elegir qué Y queda en Y=0'],['raw','Un solo mundo: sin desplazar (recorta lo que sobre)']]},{k:'yb',t:'number',l:'Y del mapa original que será Y=0',v:40,s:['ym','base']},SP]],
-    ['3. Opciones',[CK('dry','Solo analizar','No genera nada.'),CK('force','Sobrescribir si ya existe',''),CK('pub','Guardar en la biblioteca pública','Será visible para todos.'),PUBDESC]]],
+    ['2. Ajusta el mundo',[NM(),YM,YB,SP]],
+    ['3. Opciones',[CK('dry','Solo analizar','No genera nada.'),CK('force','Sobrescribir si ya existe','')]]],
  w:'Si el mapa pasa de 128 de alto se divide en capas y no se pierde nada. Las opciones de "Un solo mundo" recortan.',
  c:function(v){var c='python convert.py --convert-world '+q(v.fn||'mapa');if(v.nm)c+=' --output '+v.nm.replace(/\s+/g,'_');if(v.ym=='raw')c+=' --y-mode raw';if(v.ym=='window')c+=' --y-mode window';if(v.ym=='base')c+=' --y-base '+(v.yb||0);if(v.sp)c+=' --spawn '+v.sp;if(v.dry)c+=' --dry-run';if(v.force)c+=' --force';return c;}},
+{id:'bedrock',api:'world',isNew:true,n:'Mundo Bedrock',h:'Convertir un mundo Bedrock',d:'Sube un mapa de Minecraft Bedrock o Pocket Edition (carpeta con db y level.dat) y recibe un mundo para PocketMine.',
+ g:[['1. Sube el mapa',[{k:'f',t:'file',a:'.zip,.mcworld',l:'Mundo Bedrock en .zip o .mcworld',h:'La carpeta que trae db y level.dat. Máximo 500 MB.',max:500}]],
+    ['2. Ajusta el mundo',[NM('Vacío = el nombre real del mundo.'),YM,YB,SP]],
+    ['3. Opciones',[CK('dry','Solo analizar','No genera nada.'),CK('force','Sobrescribir si ya existe','')]]],
+ w:'Los mundos viejos (MCPE 0.9 a 1.1) salen exactos. Los de Bedrock nuevo se aproximan, y cofres, carteles y camas no se colocan.',
+ c:function(v){var c='python convert.py --convert-world '+q(v.fn||'mundo_bedrock.zip');if(v.nm)c+=' --output '+v.nm.replace(/\s+/g,'_');if(v.ym=='raw')c+=' --y-mode raw';if(v.ym=='window')c+=' --y-mode window';if(v.ym=='base')c+=' --y-base '+(v.yb||0);if(v.sp)c+=' --spawn '+v.sp;if(v.dry)c+=' --dry-run';if(v.force)c+=' --force';return c;}},
 {id:'file',n:'Archivo a mundo',h:'Convertir un archivo a mundo',d:'Para construcciones sueltas: .json, .schem, .schematic, .dat, .nbt.',
  g:[['1. Sube el archivo',[{k:'f',t:'file',a:'.json,.schem,.schematic,.dat,.nbt',l:'Construcción',h:'Un solo archivo.'}]],
     ['2. Ajusta el mundo',[NM('Ejemplo: Lobby'),SP,TRIM('Recortar altura antes de generar')]],
-    ['3. Opciones',[CK('dry','Solo analizar',''),CK('force','Sobrescribir si ya existe',''),CK('resume','Reanudar una conversión cortada',''),CK('backup','Copia de seguridad antes',''),CK('pub','Guardar en la biblioteca pública','Será visible para todos.'),PUBDESC]]],
+    ['3. Opciones',[CK('dry','Solo analizar',''),CK('force','Sobrescribir si ya existe',''),CK('resume','Reanudar una conversión cortada',''),CK('backup','Copia de seguridad antes','')]]],
  w:'Si mide más de 128 de alto, recórtalo o divídelo.',
  c:function(v){var fn=v.fn||'archivo.schem',nm=v.nm?' --output '+v.nm.replace(/\s+/g,'_'):'',pre='';if(v.tr){pre='python convert.py '+q(fn)+' --trim '+v.tr+'\n';fn=fn.replace(/\.[^.]*$/,'')+'_recortado.json';}var c=pre+'python convert.py '+q(fn)+nm;if(v.sp)c+=' --spawn '+v.sp;['dry:dry-run','force:force','resume:resume','backup:backup'].forEach(function(x){x=x.split(':');if(v[x[0]])c+=' --'+x[1];});return c;}},
 {id:'modern',n:'Moderno a legacy',h:'Convertir bloques modernos a legacy',d:'Traduce un JSON moderno a legacy, sin generar mundo.',
@@ -811,7 +970,6 @@ function show(i){
   $('panel').oninput = upd;
   $('panel').onchange = function(e){
     upd();
-    if(e.target.id=='x_pub' && e.target.checked) toast('El mapa será público. Guárdalo solo si es tuyo o tienes permiso.');
     if(e.target.type=='file') setFile(e.target);
   };
   var d = $('dz');
@@ -826,7 +984,7 @@ function show(i){
   upd();
   if(t.id == 'verify') loadWorlds();
 }
-$('tabs').innerHTML = T.map(function(t,i){ return '<button class="tool" role="tab" data-i="'+i+'" type="button">'+t.n+'</button>'; }).join('');
+$('tabs').innerHTML = T.map(function(t,i){ return '<button class="tool" role="tab" data-i="'+i+'" type="button">'+t.n+(t.isNew ? '<span class="ntag">NUEVO</span>' : '')+'</button>'; }).join('');
 $('tabs').onclick = function(e){ var b = e.target.closest('[data-i]'); if(b) show(+b.dataset.i); };
 
 /* =====================================================================
@@ -886,7 +1044,7 @@ async function runJob(){
     if(total > maxMB()*1048576 * (t.id=='batch' ? 10 : 1)) throw new Error('Lo que subes pasa del límite del servidor.');
     var opts = {}; Object.keys(v).forEach(function(k){ if(k != 'fn') opts[k] = v[k]; });
     opts.author = CFG.author;
-    var d = await jfetch('/api/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({tool:t.id, opts:opts})});
+    var d = await jfetch('/api/jobs', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({tool:t.api || t.id, opts:opts})});
     RUN.id = d.id;
     var done = 0;
     for(var i = 0; i < files.length; i++){
@@ -937,9 +1095,7 @@ function finishRun(j){
   j.results.forEach(function(r){
     var url = api('/api/jobs/'+j.id+'/download?type='+(r.type=='file'?'file':'world')+'&name='+encodeURIComponent(r.name));
     if(r.type == 'world'){
-      var pub = r.published ? '<span class="tag">En la biblioteca</span>'
-        : (SRV.info && SRV.info.publish ? '<button class="btn sm" data-pub="'+esc(r.name)+'" type="button">Publicar en biblioteca</button>' : '');
-      h += '<div class="res"><div><b>'+esc(r.name)+'</b><small>Mundo para PocketMine 0.15.10 · '+human(r.size)+'</small></div><div class="ra"><a class="btn sm p" href="'+url+'" download>Descargar .zip</a>'+pub+'</div></div>';
+      h += '<div class="res"><div><b>'+esc(r.name)+'</b><small>Mundo para PocketMine 0.15.10 · '+human(r.size)+'</small></div><div class="ra"><a class="btn sm p" href="'+url+'" download>Descargar .zip</a></div></div>';
     }else if(r.type == 'file'){
       h += '<div class="res"><div><b>'+esc(r.name)+'</b><small>'+human(r.size)+'</small></div><div class="ra"><a class="btn sm p" href="'+url+'" download>Descargar</a></div></div>';
     }else{
@@ -957,15 +1113,6 @@ function finishRun(j){
   if(ok && j.tool == 'verify') loadWorlds();
   $('run').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
-$('runr').addEventListener('click', async function(e){
-  var b = e.target.closest('[data-pub]'); if(!b || !RUN.id) return;
-  b.disabled = true; b.textContent = 'Publicando…';
-  try{
-    var d = await jfetch('/api/jobs/'+RUN.id+'/publish', {method:'POST', headers:{'Content-Type':'application/json','X-Publish-Token':CFG.pubToken}, body:JSON.stringify({name:b.dataset.pub, description:(($('x_desc')||{}).value||'').trim(), author:CFG.author})});
-    toast('Publicado en la biblioteca.'); finishRun(d.job); LIB.at = 0;
-  }catch(err){ b.disabled = false; b.textContent = 'Publicar en biblioteca'; toast(err.message); }
-});
 
 /* =====================================================================
    Biblioteca (Supabase)
@@ -990,23 +1137,59 @@ async function loadLib(force){
     box.innerHTML = '<div class="empty">'+esc(e instanceof TypeError ? 'No se pudo cargar la biblioteca por ahora. Intenta de nuevo en un momento.' : e.message)+'</div>';
   }
 }
+/* Admin: abre el .zip guardado, muestra qué trae y, si tiene archivos que no son del mundo (index.html, etc.), lo limpia y lo reemplaza. */
+async function checkMap(btn){
+  var id = btn.getAttribute('data-check'), c = supa(), old = btn.textContent;
+  var m = (LIB.items || []).filter(function(x){ return String(x.id) === id; })[0];
+  if(!m || !ADM.on) return;
+  btn.disabled = true; btn.textContent = 'Revisando…';
+  try{
+    var r;
+    try{ r = await fetch(pubUrl(c, m.storage_path)); }catch(e){ throw new Error('El navegador no pudo leer el archivo del mapa (conexión o permisos CORS).'); }
+    if(!r.ok) throw new Error('No se pudo leer el archivo del mapa (' + r.status + ').');
+    var buf = await r.arrayBuffer(), names = zipEntries(buf);
+    if(!names) throw new Error('Ese .zip no se puede leer.');
+    var cl = null; try{ cl = zipClean(buf); }catch(e){}
+    var sm = zipSummary(names);
+    if(!cl){ toast('Está limpio ✓  Dentro: ' + sm.txt); return; }
+    if(!confirm('Este mapa trae cosas que no son del mundo: ' + cl.removed.slice(0, 5).join(', ') + '.\n\n¿Limpiarlo ahora? (queda solo la carpeta del mapa)')) return;
+    btn.textContent = 'Limpiando…';
+    var np = 'comunidad/' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8) + '.zip';
+    await storagePut(c, np, cl.blob, 'application/zip', null, 'el mapa limpio');
+    var rr = await fetch(c.url + '/rest/v1/rpc/reemplazar_mapa_zip', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_id:String(m.id), p_path:np, p_size:cl.blob.size, p_clave:ADM.clave})});
+    if(!rr.ok) throw new Error('No se pudo actualizar el mapa ' + await why(rr) + '. ¿Ya corriste el SQL de Supabase?');
+    var oldp = await rr.json();
+    if(!oldp){ toast('No se pudo reemplazar el mapa.'); return; }
+    try{ await fetch(c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + oldp.split('/').map(encodeURIComponent).join('/'), {method:'DELETE', headers:storageHeaders(c, keyIsJwt(c))}); }catch(e){}
+    toast('Mapa limpio ✓'); loadLib(true);
+  }catch(e){ toast(e.message); }
+  finally{ btn.disabled = false; btn.textContent = old; }
+}
 function renderMaps(){
   var c = supa(), term = $('q').value.trim().toLowerCase(), items = LIB.items || [];
   var l = items.filter(function(m){ return (m.name+' '+m.description+' '+m.author+' '+m.source).toLowerCase().indexOf(term) > -1; });
-  if(!items.length){ $('maps').innerHTML = '<div class="empty">Todavía no hay mapas. Convierte uno y marca «Guardar en la biblioteca pública».</div>'; return; }
+  if(!items.length){ $('maps').innerHTML = '<div class="empty">Todavía no hay mapas. Sube el primero con el formulario de abajo.</div>'; return; }
   $('maps').innerHTML = l.length ? l.map(function(m){
     var meta = [m.source, human(m.size_bytes), ago(m.created_at), (m.downloads||0)+' descargas'].filter(Boolean).join(' · ');
-    return '<div class="map"><div><h3>'+esc(m.name)+'</h3>'+(m.description ? '<p>'+esc(m.description)+'</p>' : '')+'<small>'+esc(meta)+(m.author ? ' · por '+esc(m.author) : '')+'</small></div>'
-      + '<a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+'.zip'))+'" download="'+esc(m.name)+'.zip" rel="noopener">Descargar</a></div>';
+    var ext = ((m.storage_path || '').match(/\.[a-z0-9]+$/i) || ['.zip'])[0];
+    return '<div class="map">'
+      + (m.image_path ? '<div class="mapimg"><img loading="lazy" alt="Imagen de '+esc(m.name)+'" src="'+esc(pubUrl(c, m.image_path))+'"></div>' : '')
+      + '<div><h3>'+esc(m.name)+'</h3>'+(m.description ? '<p>'+esc(m.description)+'</p>' : '')+'<small>'+esc(meta)+(m.author ? ' · por '+esc(m.author) : '')+'</small></div>'
+      + '<div class="mapbtns"><a class="btn sm p" data-dl="'+esc(m.id)+'" href="'+esc(pubUrl(c, m.storage_path)+'?download='+encodeURIComponent(m.name+ext))+'" download>Descargar</a>'+(ADM.on && /\.zip$/i.test(m.storage_path || '') ? '<button class="btn sm" type="button" data-check="'+esc(m.id)+'">Revisar</button>' : '')+delBtn('m', m.id, m.owner_hash)+'</div></div>';
   }).join('') : '<div class="empty">No hay mapas con ese nombre.</div>';
 }
 $('q').oninput = renderMaps;
 $('lr').onclick = function(){ loadLib(true); };
 $('maps').addEventListener('click', function(e){
+  var dl = e.target.closest('[data-del]'); if(dl){ delItem(dl); return; }
+  var ck = e.target.closest('[data-check]'); if(ck){ checkMap(ck); return; }
   var a = e.target.closest('[data-dl]'); if(!a) return;
-  var c = supa();
-  fetch(c.url + '/rest/v1/rpc/increment_downloads', {method:'POST', headers:{apikey:c.key, Authorization:'Bearer '+c.key, 'Content-Type':'application/json'}, body:JSON.stringify({map_id:a.dataset.dl}), keepalive:true}).catch(function(){});
-  LIB.at = 0;
+  /* no se toca el enlace: el navegador lo descarga solo, igual que el botón del convertidor. El contador va aparte y después. */
+  var c = supa(), mid = a.dataset.dl;
+  setTimeout(function(){
+    fetch(c.url + '/rest/v1/rpc/increment_downloads', {method:'POST', headers:{apikey:c.key, Authorization:'Bearer '+c.key, 'Content-Type':'application/json'}, body:JSON.stringify({map_id:mid})}).catch(function(){});
+    LIB.at = 0;
+  }, 1500);
 });
 
 /* =====================================================================
@@ -1131,13 +1314,13 @@ function deviceId(){
   }catch(e){ return PO.mem || (PO.mem = mk()); }
 }
 function setTab(t){
-  var po = t == 'po';
-  $('fb_pane').hidden = po; $('po_pane').hidden = !po;
-  $('tab_fb').classList.toggle('p', !po); $('tab_po').classList.toggle('p', po);
-  if(po) loadPo(false); else loadFb(false);
+  $('fb_pane').hidden = t != 'fb'; $('po_pane').hidden = t != 'po'; $('an_pane').hidden = t != 'an';
+  $('tab_fb').classList.toggle('p', t == 'fb'); $('tab_po').classList.toggle('p', t == 'po'); $('tab_an').classList.toggle('p', t == 'an');
+  if(t == 'po') loadPo(false); else if(t == 'an') loadAn(false); else loadFb(false);
 }
 $('tab_fb').onclick = function(){ setTab('fb'); };
 $('tab_po').onclick = function(){ setTab('po'); };
+$('tab_an').onclick = function(){ setTab('an'); };
 var ADM = {on:false, clave:''}, MYH = null;
 async function sha256hex(t){
   var b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
@@ -1148,7 +1331,7 @@ function myHash(){
   if(!(window.crypto && crypto.subtle)) return Promise.resolve(null);
   return sha256hex(deviceId()).then(function(h){ MYH = h; return h; }).catch(function(){ return null; });
 }
-myHash().then(function(){ if(FB.items) renderFb(); if(PO.items) renderPo(); });
+myHash().then(function(){ rerenderAll(); });
 /* detalle del error de Supabase (código y mensaje) para saber qué falla */
 async function why(r){
   var d = '';
@@ -1156,32 +1339,49 @@ async function why(r){
   return '(' + r.status + (d ? ' · ' + d.slice(0, 110) : '') + ')';
 }
 function delBtn(kind, id, oh){
-  if(!(ADM.on || (MYH && oh && oh === MYH))) return '';
+  /* encuestas y anuncios: solo el admin los borra; comentarios y mapas: su autor o el admin */
+  var own = (kind == 'c' || kind == 'm') && MYH && oh && oh === MYH;
+  if(!(ADM.on || own)) return '';
   return '<button class="btn sm del" type="button" data-del="'+kind+'" data-did="'+id+'">Borrar</button>';
 }
-function rerenderAll(){ if(FB.items) renderFb(); if(PO.items) renderPo(); }
+function rerenderAll(){ if(FB.items) renderFb(); if(PO.items) renderPo(); if(LIB.items) renderMaps(); if(AN.items) renderAn(); }
 async function delItem(b){
-  var kind = b.getAttribute('data-del'), id = Number(b.getAttribute('data-did')), c = supa();
-  if(!confirm(kind == 'c' ? '¿Borrar este comentario? Si tiene respuestas, también se borran.' : '¿Borrar esta encuesta y todos sus votos?')) return;
+  var kind = b.getAttribute('data-del'), raw = b.getAttribute('data-did'), c = supa();
+  var id = kind == 'm' ? raw : Number(raw);
+  var asks = {c:'¿Borrar este comentario? Si tiene respuestas, también se borran.', p:'¿Borrar esta encuesta y todos sus votos?', m:'¿Borrar este mapa de la biblioteca? Se borra también su imagen.', a:'¿Borrar este anuncio?'};
+  var fns = {c:'borrar_comentario', p:'borrar_encuesta', m:'borrar_mapa', a:'borrar_anuncio'};
+  if(!confirm(asks[kind])) return;
   try{
-    var r = await fetch(c.url + '/rest/v1/rpc/' + (kind == 'c' ? 'borrar_comentario' : 'borrar_encuesta'), {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_id:id, p_device:deviceId(), p_clave:ADM.on ? ADM.clave : ''})});
+    var body = kind == 'a' ? {p_id:id, p_clave:ADM.on ? ADM.clave : ''} : {p_id:id, p_device:deviceId(), p_clave:ADM.on ? ADM.clave : ''};
+    var r = await fetch(c.url + '/rest/v1/rpc/' + fns[kind], {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify(body)});
     if(!r.ok) throw new Error('No se pudo borrar ' + await why(r) + '. ¿Ya corriste el SQL de Supabase?');
-    if((await r.json()) !== true){ toast('No tienes permiso para borrar eso.'); return; }
+    var res = await r.json();
+    if(kind == 'm'){
+      if(!res || res.ok !== true){ toast('No tienes permiso para borrar eso.'); return; }
+      /* borra los archivos (mapa e imagen) ya autorizados por la base de datos */
+      var ps = res.paths || [], k;
+      for(k = 0; k < ps.length; k++){
+        try{ await fetch(c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + ps[k].split('/').map(encodeURIComponent).join('/'), {method:'DELETE', headers:storageHeaders(c, keyIsJwt(c))}); }catch(e){}
+      }
+    }else if(res !== true){ toast('No tienes permiso para borrar eso.'); return; }
     toast('Borrado.');
-    if(kind == 'c') loadFb(true); else loadPo(true, true);
+    if(kind == 'c') loadFb(true); else if(kind == 'p') loadPo(true, true); else if(kind == 'm') loadLib(true); else loadAn(true);
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo borrar. Revisa tu conexión.' : e.message); }
 }
 function admUI(){
   $('adm_bar').hidden = !ADM.on;
-  $('adm_btn').hidden = ADM.on;
+  $('adm_btn').textContent = ADM.on ? 'Admin ✓' : 'Admin';
+  $('adm_btn').classList.toggle('on', ADM.on);
   if(ADM.on) $('adm_box').hidden = true;
+  $('po_formsec').hidden = !ADM.on; $('an_formsec').hidden = !ADM.on;
+  $('po_goto').hidden = !ADM.on; $('an_goto').hidden = !ADM.on;
 }
 $('adm_btn').onclick = function(){
+  if(ADM.on){ ADM.on = false; ADM.clave = ''; admUI(); toast('Saliste del modo admin.'); rerenderAll(); return; }
   $('adm_box').hidden = !$('adm_box').hidden;
-  if(!$('adm_box').hidden){ $('adm_pw').focus(); $('adm_box').scrollIntoView({behavior:'smooth', block:'center'}); }
+  if(!$('adm_box').hidden){ window.scrollTo({top:0, behavior:'smooth'}); $('adm_pw').focus(); }
 };
 $('adm_cancel').onclick = function(){ $('adm_pw').value = ''; $('adm_box').hidden = true; };
-$('adm_out').onclick = function(){ ADM.on = false; ADM.clave = ''; admUI(); toast('Saliste del modo admin.'); rerenderAll(); };
 $('adm_ok').onclick = async function(){
   var pw = $('adm_pw').value, c = supa();
   if(!pw){ toast('Escribe la contraseña.'); return; }
@@ -1258,8 +1458,8 @@ async function sendPo(){
   var name = $('po_name').value.trim(), q = $('po_q').value.trim(), c = supa();
   if(!name){ toast('Pon tu nombre.'); return; }
   if(q.length < 3){ toast('Escribe una pregunta un poco más larga.'); return; }
-  var pw = $('po_pw').value;
-  if(!pw){ toast('Escribe la contraseña para publicar.'); return; }
+  var pw = ADM.clave;
+  if(!ADM.on || !pw){ toast('Entra como admin para publicar encuestas.'); return; }
   if(!c.url || !c.key){ toast('Las encuestas no están disponibles por ahora.'); return; }
   if(Date.now() - PO.last < 15000){ toast('Espera unos segundos antes de publicar otra.'); return; }
   PO.busy = true; $('po_send').disabled = true; $('po_send').textContent = 'Publicando…';
@@ -1269,7 +1469,7 @@ async function sendPo(){
     var okp = await r.json();
     if(okp !== true){ toast('Contraseña incorrecta.'); return; }
     PO.last = Date.now(); CFG.author = name; saveCfg();
-    $('po_q').value = ''; $('po_pw').value = ''; $('po_cnt').textContent = '0 / 200';
+    $('po_q').value = ''; $('po_cnt').textContent = '0 / 200';
     toast('¡Encuesta publicada!');
     loadPo(true);
   }catch(e){ toast(e instanceof TypeError ? 'No se pudo publicar. Revisa tu conexión.' : e.message); }
@@ -1317,6 +1517,297 @@ async function visitCount(){
 visitCount();
 
 /* =====================================================================
+   Subir mapas a la biblioteca (Storage + función publicar_mapa)
+   ===================================================================== */
+var UP = {busy:false, last:0, img:null, zip:null, zipFor:null, warnHtml:false, noWorld:false};
+/* lista lo que trae un .zip (sin descomprimirlo): lee el índice que va al final del archivo */
+function zipEntries(buf){
+  var v = new DataView(buf), n = v.byteLength, i, eocd = -1;
+  for(i = n - 22; i >= Math.max(0, n - 65557); i--){ if(v.getUint32(i, true) === 0x06054b50){ eocd = i; break; } }
+  if(eocd < 0) return null;
+  var total = v.getUint16(eocd + 10, true), off = v.getUint32(eocd + 16, true), out = [], dec = new TextDecoder('utf-8'), k;
+  for(k = 0; k < total && off + 46 <= n; k++){
+    if(v.getUint32(off, true) !== 0x02014b50) break;
+    var nl = v.getUint16(off + 28, true), el = v.getUint16(off + 30, true), cl = v.getUint16(off + 32, true);
+    out.push(dec.decode(new Uint8Array(buf, off + 46, nl)));
+    off += 46 + nl + el + cl;
+  }
+  return out;
+}
+/* Deja en el .zip SOLO el mundo, como hace el convertidor (su .zip trae únicamente la carpeta del
+   mundo). Quita index.html y demás archivos de la página, basura de Mac/Windows y todo lo que esté
+   fuera de la carpeta del mundo (la que tiene level.dat). Copia los datos tal cual: no descomprime
+   ni recomprime. Devuelve {blob, names, removed} o null si no hay nada que quitar o no se puede. */
+function zipClean(buf){
+  var v = new DataView(buf), n = v.byteLength, eocd = -1, i, k;
+  for(i = n - 22; i >= Math.max(0, n - 65557); i--){ if(v.getUint32(i, true) === 0x06054b50){ eocd = i; break; } }
+  if(eocd < 0) return null;
+  var total = v.getUint16(eocd + 10, true), cdOff = v.getUint32(eocd + 16, true);
+  if(total === 0xFFFF || cdOff === 0xFFFFFFFF) return null;               /* zip64: no se toca */
+  var dec = new TextDecoder('utf-8'), ents = [], off = cdOff;
+  for(k = 0; k < total; k++){
+    if(off + 46 > n || v.getUint32(off, true) !== 0x02014b50) return null;
+    var nl = v.getUint16(off + 28, true), el = v.getUint16(off + 30, true), cl = v.getUint16(off + 32, true);
+    var e = {name:dec.decode(new Uint8Array(buf, off + 46, nl)).replace(/^\.?\//, ''), off:off, len:46 + nl + el + cl,
+             flags:v.getUint16(off + 8, true), csize:v.getUint32(off + 20, true), lho:v.getUint32(off + 42, true)};
+    if(e.csize === 0xFFFFFFFF || e.lho === 0xFFFFFFFF) return null;
+    ents.push(e); off += e.len;
+  }
+  var roots = [];
+  ents.forEach(function(e){ if(/(^|\/)level\.dat$/i.test(e.name)) roots.push(e.name.replace(/level\.dat$/i, '')); });
+  var nested = roots.filter(function(r){ return r !== ''; });
+  var junk = function(nm){ return /^__MACOSX\//.test(nm) || /(^|\/)(\.DS_Store|Thumbs\.db|desktop\.ini)$/i.test(nm); };
+  var web = function(nm){ return nm.indexOf('/') < 0 && /\.(html?|js|css|map|php|webmanifest)$/i.test(nm); };
+  var hasFolders = ents.some(function(e){ return e.name.indexOf('/') > 0; });
+  var keep = [], removed = [];
+  ents.forEach(function(e){
+    var isDir = /\/$/.test(e.name), ok;
+    if(junk(e.name)) ok = false;
+    else if(roots.indexOf('') > -1) ok = !web(e.name);                       /* el mundo está en la raíz del .zip: solo se quitan los archivos web sueltos */
+    else if(nested.length) ok = nested.some(function(r){ return e.name.indexOf(r) === 0; });   /* el mundo está en una carpeta: solo se queda esa carpeta */
+    else if(hasFolders) ok = e.name.indexOf('/') > 0;                         /* sin level.dat: se queda lo que está dentro de carpetas y se quitan los archivos sueltos de la raíz */
+    else ok = !web(e.name);
+    if(ok) keep.push(e); else if(!isDir) removed.push(e.name);
+  });
+  if(!removed.length || !keep.length) return null;
+  var parts = [], cen = [], pos = 0, ok2 = true;
+  keep.forEach(function(e){
+    var l = e.lho;
+    if(l + 30 > n || v.getUint32(l, true) !== 0x04034b50){ ok2 = false; return; }
+    var end = l + 30 + v.getUint16(l + 26, true) + v.getUint16(l + 28, true) + e.csize;
+    if(e.flags & 8) end += (end + 4 <= n && v.getUint32(end, true) === 0x08074b50) ? 16 : 12;
+    if(end > n){ ok2 = false; return; }
+    parts.push(new Uint8Array(buf, l, end - l));
+    var c = new Uint8Array(buf.slice(e.off, e.off + e.len));
+    new DataView(c.buffer).setUint32(42, pos, true);
+    cen.push(c); pos += end - l;
+  });
+  if(!ok2) return null;
+  var cdSize = cen.reduce(function(a, c){ return a + c.length; }, 0), tail = new DataView(new ArrayBuffer(22));
+  tail.setUint32(0, 0x06054b50, true); tail.setUint16(8, keep.length, true); tail.setUint16(10, keep.length, true);
+  tail.setUint32(12, cdSize, true); tail.setUint32(16, pos, true);
+  return {blob:new Blob(parts.concat(cen, [tail.buffer]), {type:'application/zip'}), names:keep.map(function(e){ return e.name; }), removed:removed};
+}
+function zipSummary(names){
+  var top = {}, order = [], i;
+  names.forEach(function(nm){
+    nm = nm.replace(/^\.?\//, '');
+    var first = nm.split('/')[0], isDir = nm.indexOf('/') > -1;
+    if(!first) return;
+    var key = isDir ? first + '/' : first;
+    if(!Object.prototype.hasOwnProperty.call(top, key)){ top[key] = 0; order.push(key); }
+    if(!/\/$/.test(nm)) top[key]++;
+  });
+  var html = order.filter(function(k){ return /\.html?$/i.test(k); });
+  var txt = order.slice(0, 6).map(function(k){ return k.slice(-1) == '/' ? k + ' (' + top[k] + ' archivos)' : k; }).join(' · ') + (order.length > 6 ? ' · …' : '');
+  return {txt:txt, html:html};
+}
+$('up_author').value = CFG.author || '';
+$('up_file').onchange = async function(){
+  UP.zip = null; UP.zipFor = null; UP.warnHtml = false; UP.noWorld = false; $('up_info').hidden = true;
+  var f = this.files && this.files[0]; if(!f) return;
+  if(!/\.zip$/i.test(f.name)){ toast('El mapa debe ser un .zip con la carpeta del mundo.'); this.value = ''; return; }
+  try{
+    var buf = await f.arrayBuffer();
+    UP.zip = new Blob([buf], {type:'application/octet-stream'}); UP.zipFor = f; UP.warnHtml = false;
+    var info = $('up_info'); info.hidden = true; info.className = 'up-info';
+    if(/\.zip$/i.test(f.name)){
+      var names = zipEntries(buf), cleaned = null;
+      if(!names){ toast('No pude leer ese .zip. ¿Está dañado? Vuelve a comprimir la carpeta del mapa.'); this.value = ''; UP.zip = null; UP.zipFor = null; return; }
+      UP.noWorld = !names.some(function(nm){ return /(^|\/)level\.dat$/i.test(nm); });
+      try{ cleaned = zipClean(buf); }catch(e){ cleaned = null; }
+      if(cleaned){ UP.zip = cleaned.blob; names = cleaned.names; }          /* se sube solo el mundo, igual que el convertidor */
+      if(names){
+        var sm = zipSummary(names);
+        info.textContent = 'Dentro del .zip: ' + sm.txt;
+        if(cleaned) info.textContent += '. Se quitó lo que no es del mapa (' + cleaned.removed.slice(0, 4).join(', ') + (cleaned.removed.length > 4 ? ', …' : '') + ').';
+        if(sm.html.length){
+          UP.warnHtml = true; info.classList.add('warn');
+          info.textContent += '. Ojo: trae ' + sm.html.join(', ') + ' suelto junto a la carpeta del mapa. Si no lo quieres, vuelve a comprimir solo la carpeta del mapa.';
+        }
+        if(UP.noWorld){ info.classList.add('warn'); info.textContent += '. No encontré level.dat: el .zip debe traer la carpeta del mundo.'; }
+        info.hidden = false;
+      }
+    }
+  }catch(e){
+    toast('No se pudo leer ese archivo. Muévelo a la carpeta Descargas y elígelo otra vez.');
+    this.value = '';
+  }
+};
+function drawToJpeg(src, w, h, maxW){
+  var k = Math.min(1, maxW / w), cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(w * k)); cv.height = Math.max(1, Math.round(h * k));
+  var cx = cv.getContext('2d'); cx.fillStyle = '#000'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(src, 0, 0, cv.width, cv.height);
+  return new Promise(function(res, rej){
+    cv.toBlob(function(b){
+      if(b) res(b); else cv.toBlob(function(b2){ b2 ? res(b2) : rej(new Error('img')); });
+    }, 'image/jpeg', 0.85);
+  });
+}
+function loadImgEl(file){
+  return new Promise(function(res, rej){
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){ res({el:im, w:im.naturalWidth || im.width, h:im.naturalHeight || im.height, url:url}); };
+    im.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('img')); };
+    im.src = url;
+  });
+}
+async function shrinkImg(file, maxW){
+  /* 1) intenta con createImageBitmap (respeta la rotación de las fotos del celular) */
+  if(window.createImageBitmap){
+    try{
+      var bm = await createImageBitmap(file, {imageOrientation:'from-image'});
+      var out = await drawToJpeg(bm, bm.width, bm.height, maxW);
+      if(bm.close) bm.close();
+      return out;
+    }catch(e){}
+  }
+  /* 2) si no, con un elemento de imagen normal (cualquier formato que abra el navegador) */
+  var o = await loadImgEl(file);
+  try{ return await drawToJpeg(o.el, o.w, o.h, maxW); }
+  finally{ URL.revokeObjectURL(o.url); }
+}
+$('up_img').onchange = async function(){
+  UP.img = null; $('up_prev').hidden = true;
+  var f = this.files && this.files[0]; if(!f) return;
+  try{ UP.img = await shrinkImg(f, 960); $('up_prev').src = URL.createObjectURL(UP.img); $('up_prev').hidden = false; }
+  catch(e){ toast('Tu navegador no pudo abrir esa foto. Prueba con otra (JPG, PNG, WEBP...).'); this.value = ''; }
+};
+function xhrPost(url, headers, blob, onprog){
+  return new Promise(function(res, rej){
+    var x = new XMLHttpRequest(), k;
+    x.open('POST', url);
+    for(k in headers) x.setRequestHeader(k, headers[k]);
+    x.upload.onprogress = function(e){ if(e.lengthComputable && onprog) onprog(e.loaded); };
+    x.onload = function(){ res({status:x.status, text:x.responseText}); };
+    x.onerror = function(){ rej(new TypeError('red')); };
+    x.send(blob);
+  });
+}
+function storageHeaders(c, withAuth, extra){
+  var h = {apikey:c.key}, k;
+  if(withAuth) h.Authorization = 'Bearer ' + c.key;
+  for(k in (extra || {})) h[k] = extra[k];
+  return h;
+}
+/* las llaves nuevas (sb_publishable_...) no son JWT: se mandan solo en "apikey". Las viejas (eyJ...) también en Authorization. */
+function keyIsJwt(c){ return String(c.key).indexOf('eyJ') === 0; }
+async function storagePut(c, path, blob, type, onprog, label){
+  var url = c.url + '/storage/v1/object/' + encodeURIComponent(c.bucket) + '/' + path.split('/').map(encodeURIComponent).join('/');
+  var auth = keyIsJwt(c), r = null, types = [type];
+  if(type !== 'application/octet-stream') types.push('application/octet-stream');
+  var k, netErr = false;
+  for(k = 0; k < types.length; k++){
+    try{
+      r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':types[k], 'x-upsert':'false'}), blob, onprog);
+      if(r.status == 400 || r.status == 401){
+        auth = !auth;
+        r = await xhrPost(url, storageHeaders(c, auth, {'Content-Type':types[k], 'x-upsert':'false'}), blob, onprog);
+      }
+      netErr = false; break;
+    }catch(e){ netErr = true; r = null; }
+  }
+  if(netErr || !r) throw new Error('Se cortó la conexión al subir ' + (label || 'el archivo') + ' (' + human(blob.size) + '). Prueba de nuevo o con una red más estable.');
+  if(r.status < 200 || r.status >= 300){
+    var d = ''; try{ var j = JSON.parse(r.text); d = ((j.error || '') + ' ' + (j.message || '')).trim(); }catch(e){}
+    if(/mime/i.test(r.text)) throw new Error('Supabase no deja subir ese tipo de archivo. Falta correr el SQL que permite imágenes y mapas en la biblioteca.');
+    if(r.status == 413) throw new Error('El archivo pesa más de lo que permite tu proyecto de Supabase.');
+    throw new Error('No se pudo subir ' + (label || 'el archivo') + ' (' + r.status + (d ? ' · ' + d.slice(0, 100) : '') + ').');
+  }
+}
+function upBar(frac){
+  $('up_bar').hidden = false;
+  $('up_bar').firstElementChild.style.width = Math.max(2, Math.min(100, Math.round(frac * 100))) + '%';
+}
+async function sendUp(){
+  if(UP.busy) return;
+  var name = $('up_name').value.trim(), author = $('up_author').value.trim(), ver = $('up_ver').value.trim(), desc = $('up_desc').value.trim();
+  var f = $('up_file').files && $('up_file').files[0], c = supa();
+  if(f && (!UP.zip || UP.zipFor !== f)){
+    try{ UP.zip = new Blob([await f.arrayBuffer()], {type:'application/octet-stream'}); UP.zipFor = f; }
+    catch(e){ toast('No se pudo leer el archivo del mapa. Muévelo a la carpeta Descargas y elígelo otra vez.'); return; }
+  }
+  if(name.length < 3){ toast('Ponle un nombre al mapa (mínimo 3 letras).'); return; }
+  if(!author){ toast('Pon quién lo hizo.'); return; }
+  if(!f){ toast('Elige el archivo del mapa.'); return; }
+  var em = f.name.match(/\.(zip)$/i);
+  if(!em){ toast('El mapa debe ser un .zip con la carpeta del mundo.'); return; }
+  if(UP.noWorld){ toast('Ese .zip no trae la carpeta del mundo (falta level.dat). Comprime la carpeta del mapa y vuelve a elegirla.'); return; }
+  if(f.size > 50 * 1024 * 1024){ toast('El mapa pesa más de 50 MB.'); return; }
+  if(!UP.img){ toast('Sube una imagen de cómo es el mapa.'); return; }
+  if(!c.url || !c.key){ toast('La biblioteca no está disponible por ahora.'); return; }
+  if(Date.now() - UP.last < 30000){ toast('Espera unos segundos antes de subir otro.'); return; }
+  if(UP.warnHtml && !confirm('Tu .zip trae un archivo .html suelto junto a la carpeta del mapa (mira el aviso rojo). ¿Subirlo de todos modos?')) return;
+  UP.busy = true; $('up_send').disabled = true; $('up_send').textContent = 'Subiendo…'; upBar(0.02);
+  var ext = 'zip', types = {zip:'application/zip'};
+  var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  var zipPath = 'comunidad/' + id + '.' + ext, imgPath = 'comunidad/' + id + '.jpg', total = UP.zip.size + UP.img.size;
+  try{
+    await storagePut(c, imgPath, UP.img, 'image/jpeg', function(l){ upBar(l / total); }, 'la imagen');
+    await storagePut(c, zipPath, UP.zip, types[ext], function(l){ upBar((UP.img.size + l) / total); }, 'el mapa');
+    var r = await fetch(c.url + '/rest/v1/rpc/publicar_mapa', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_name:name.slice(0, 60), p_author:author.slice(0, 40), p_description:desc.slice(0, 200), p_source:(ver || 'Comunidad').slice(0, 30), p_storage_path:zipPath, p_image_path:imgPath, p_size:UP.zip.size, p_device:deviceId()})});
+    if(!r.ok) throw new Error('No se pudo publicar el mapa ' + await why(r) + '.');
+    UP.last = Date.now(); CFG.author = author; saveCfg();
+    ['up_name', 'up_ver', 'up_desc', 'up_file', 'up_img'].forEach(function(k){ $(k).value = ''; });
+    UP.img = null; UP.zip = null; UP.zipFor = null; UP.warnHtml = false; UP.noWorld = false; $('up_info').hidden = true; $('up_prev').hidden = true; $('up_bar').hidden = true;
+    toast('¡Mapa subido a la biblioteca!');
+    loadLib(true);
+    try{ $('maps').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
+  }catch(e){ toast(e instanceof TypeError ? 'No se pudo subir. Revisa tu conexión.' : e.message); }
+  finally{ UP.busy = false; $('up_send').disabled = false; $('up_send').textContent = 'Subir mapa'; $('up_bar').hidden = true; }
+}
+$('up_send').onclick = sendUp;
+
+/* =====================================================================
+   Anuncios (los publica solo el admin)
+   ===================================================================== */
+var AN = {items:null, at:0, busy:false};
+async function loadAn(force){
+  var c = supa(), box = $('anlist');
+  if(!c.url || !c.key){ box.innerHTML = ''; return; }
+  if(!force && AN.items && Date.now() - AN.at < 30000){ renderAn(); return; }
+  try{
+    var r = await fetch(c.url + '/rest/v1/anuncios?select=*&order=created_at.desc&limit=30', {headers:fbHeaders(c)});
+    if(!r.ok) throw new Error('No se pudieron cargar los anuncios ' + await why(r) + '.');
+    AN.items = await r.json(); AN.at = Date.now(); renderAn();
+  }catch(e){
+    AN.items = null;
+    box.innerHTML = '<div class="empty">'+esc(e instanceof TypeError ? 'No se pudieron cargar los anuncios por ahora.' : e.message)+'</div>';
+  }
+}
+function renderAn(){
+  var l = AN.items || [];
+  $('an_count').textContent = l.length + (l.length == 1 ? ' anuncio' : ' anuncios');
+  $('anlist').innerHTML = l.length ? l.map(function(a){
+    return '<div class="card fb an"><div class="h"><b>'+esc(a.title)+'</b><span class="tag">Anuncio</span></div><p>'+esc(a.body)+'</p><div class="fb-foot"><small>'+esc(ago(a.created_at))+'</small><div class="fb-btns">'+delBtn('a', a.id, null)+'</div></div></div>';
+  }).join('') : '<div class="empty">Todavía no hay anuncios. Aquí aparecerán las novedades.</div>';
+}
+$('anlist').addEventListener('click', function(e){
+  var d = e.target.closest ? e.target.closest('[data-del]') : null; if(d) delItem(d);
+});
+$('an_send').onclick = async function(){
+  if(AN.busy) return;
+  var t = $('an_title').value.trim(), b = $('an_body').value.trim(), pw = ADM.clave, c = supa();
+  if(t.length < 3){ toast('Escribe un título (mínimo 3 letras).'); return; }
+  if(b.length < 3){ toast('Escribe el mensaje del anuncio.'); return; }
+  if(!ADM.on || !pw){ toast('Entra como admin para publicar anuncios.'); return; }
+  AN.busy = true; $('an_send').disabled = true; $('an_send').textContent = 'Publicando…';
+  try{
+    var r = await fetch(c.url + '/rest/v1/rpc/crear_anuncio', {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify({p_title:t.slice(0, 80), p_body:b.slice(0, 600), p_clave:pw})});
+    if(!r.ok) throw new Error('No se pudo publicar ' + await why(r) + '. ¿Ya corriste el SQL de Supabase?');
+    if((await r.json()) !== true){ toast('Contraseña incorrecta.'); return; }
+    $('an_title').value = ''; $('an_body').value = '';
+    toast('¡Anuncio publicado!'); loadAn(true);
+  }catch(e){ toast(e instanceof TypeError ? 'No se pudo publicar. Revisa tu conexión.' : e.message); }
+  finally{ AN.busy = false; $('an_send').disabled = false; $('an_send').textContent = 'Publicar anuncio'; }
+};
+$('an_ref').onclick = function(){ loadAn(true); };
+document.addEventListener('click', function(e){
+  var g = e.target.closest ? e.target.closest('[data-goto]') : null; if(!g) return;
+  var t = $(g.getAttribute('data-goto')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* =====================================================================
    Navegación
    ===================================================================== */
 var VIEWS = ['inicio','convertir','biblioteca','avisos','bugs'];
@@ -1326,7 +1817,7 @@ function view(n, keep){
   document.querySelectorAll('.nav button').forEach(function(b){ var a = b.dataset.v==n; b.classList.toggle('active', a); if(a) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
   if(!keep){ history.replaceState(null, '', '#'+n); window.scrollTo(0,0); }
   if(n == 'biblioteca') loadLib(false);
-  if(n == 'bugs'){ if($('po_pane').hidden) loadFb(false); else loadPo(false); }
+  if(n == 'bugs'){ if(!$('po_pane').hidden) loadPo(false); else if(!$('an_pane').hidden) loadAn(false); else loadFb(false); }
   if(n == 'convertir' && !RUN.busy) checkServer().then(function(){ if(T[cur].id == 'verify') loadWorlds(); });
 }
 document.addEventListener('click', function(e){ var t = e.target.closest('[data-v]'); if(t){ e.preventDefault(); view(t.dataset.v); } });
