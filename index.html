@@ -865,9 +865,21 @@ var CFG = loadCfg();
 
 var API_DEFAULT_URL = 'https://worldportlegacy-1.onrender.com';
 
+var RT_API = '';
+async function resolveApi(force){
+  if((CFG.api || '').trim()) return;
+  if(RT_API && !force) return;
+  try{
+    var r = await fetch(SUPABASE_DEFAULT_URL + '/rest/v1/server_config?key=eq.api_url&select=value', {
+      headers:{apikey:SUPABASE_DEFAULT_KEY, Authorization:'Bearer ' + SUPABASE_DEFAULT_KEY}, cache:'no-store'});
+    var d = await r.json();
+    if(d && d[0] && d[0].value) RT_API = String(d[0].value).trim().replace(/\/+$/, '');
+  }catch(e){}
+}
 function apiBase(){
   var b = (CFG.api || '').trim().replace(/\/+$/, '');
   if(b) return b;
+  if(RT_API) return RT_API;
   if(location.protocol === 'file:') return 'http://localhost:8080';
   return API_DEFAULT_URL;
 }
@@ -902,7 +914,10 @@ async function checkServer(){
     if(box.className === 'srv') txt.textContent = 'El servidor estaba dormido, despertando… puede tardar hasta un minuto.';
   }, 6000);
   try{
-    var d = await jfetch('/api/health');
+    await resolveApi(false);
+    var d;
+    try{ d = await jfetch('/api/health'); }
+    catch(e1){ await resolveApi(true); d = await jfetch('/api/health'); }
     SRV = {ok:true, info:d};
     box.className = 'srv ok';
     txt.innerHTML = '<b>Servidor conectado</b> · Python ' + esc(d.python) + ' · máximo ' + d.max_upload_mb + ' MB por archivo';
