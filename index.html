@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1b1b1b">
+<meta name="theme-color" content="#0F3324">
 <title>World Port Legacy — Convertidor de mapas para PocketMine 0.15.10</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges' %3E%3Crect width='8' height='8' fill='%235FAE3C'/%3E%3Crect x='0' y='0' width='3' height='2' fill='%234E9A30'/%3E%3Crect x='5' y='1' width='3' height='2' fill='%2374C24A'/%3E%3Crect x='1' y='2' width='2' height='2' fill='%23101010'/%3E%3Crect x='5' y='2' width='2' height='2' fill='%23101010'/%3E%3Crect x='3' y='4' width='2' height='1' fill='%23101010'/%3E%3Crect x='2' y='5' width='4' height='2' fill='%23101010'/%3E%3Crect x='2' y='7' width='2' height='1' fill='%23101010'/%3E%3Crect x='4' y='7' width='2' height='1' fill='%23101010'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges' %3E%3Crect width='8' height='8' fill='%23C8302A'/%3E%3Crect x='0' y='0' width='3' height='2' fill='%234E9A30'/%3E%3Crect x='5' y='1' width='3' height='2' fill='%2374C24A'/%3E%3Crect x='1' y='2' width='2' height='2' fill='%23101010'/%3E%3Crect x='5' y='2' width='2' height='2' fill='%23101010'/%3E%3Crect x='3' y='4' width='2' height='1' fill='%23101010'/%3E%3Crect x='2' y='5' width='4' height='2' fill='%23101010'/%3E%3Crect x='2' y='7' width='2' height='1' fill='%23101010'/%3E%3Crect x='4' y='7' width='2' height='1' fill='%23101010'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -533,6 +533,93 @@ main{padding:38px 22px 56px}
 /* etiqueta pequeña "NUEVO" sobre la esquina de una pestaña de herramienta (no cambia el diseño) */
 .tool{position:relative}
 .ntag{position:absolute;top:-4px;left:-3px;padding:2px 4px;background:#FCDB05;color:#000;border:2px solid #000;font:400 7px/1 var(--px);text-shadow:none;transform:rotate(-6deg);pointer-events:none;z-index:2}
+
+/* ===================== EDICIÓN NAVIDAD (solo diseño) ===================== */
+:root{
+  --neon:#FFD83A;--neon2:#C8302A;--neon-glow:rgba(255,216,58,.5);--mc-hover:#FFF1A8;
+  --g:#2E8B3E;--gl:#4FB35F;--gold:#FFD83A;--red:#C8302A;
+  --pine:#0F3324;--pine2:#0A1F16;--wine:#2B0E12;--cream:#F3EAD3;
+}
+body{background-color:var(--pine2);background-image:linear-gradient(180deg,#123A29 0%,#0A1F16 55%,#2B0E12 100%);background-attachment:scroll}
+body::before{background:
+  radial-gradient(ellipse at 50% 0%,rgba(255,216,58,.14),transparent 55%),
+  radial-gradient(ellipse at 50% 110%,rgba(200,48,42,.28),transparent 60%)}
+::selection{background:var(--gold);color:#3a0d0a}
+
+/* nieve (cuadritos pixelados que caen) */
+html::after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.9;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px,#fff 98%,transparent),
+    radial-gradient(2px 2px at 110px 90px,#fff 98%,transparent),
+    radial-gradient(3px 3px at 60px 160px,#fff 98%,transparent),
+    radial-gradient(2px 2px at 170px 20px,#fff 98%,transparent),
+    radial-gradient(3px 3px at 90px 40px,#fff 98%,transparent),
+    radial-gradient(2px 2px at 250px 150px,#fff 98%,transparent),
+    radial-gradient(3px 3px at 40px 220px,#fff 98%,transparent),
+    radial-gradient(2px 2px at 330px 260px,#fff 98%,transparent),
+    radial-gradient(3px 3px at 180px 340px,#fff 98%,transparent);
+  background-size:200px 200px,200px 200px,200px 200px,200px 200px,300px 300px,300px 300px,300px 300px,400px 400px,400px 400px;
+  animation:nieve 14s linear infinite}
+@keyframes nieve{
+  from{background-position:0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0}
+  to{background-position:20px 200px,-20px 200px,30px 200px,-30px 200px,40px 300px,-40px 300px,30px 300px,-50px 400px,50px 400px}}
+
+/* luces de navidad arriba del todo */
+body::after{content:"";position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:14px;z-index:300;pointer-events:none;
+  background:
+    radial-gradient(circle at 12px 8px,#FF4A3D 0 4px,transparent 5px),
+    radial-gradient(circle at 36px 8px,#FFD83A 0 4px,transparent 5px),
+    radial-gradient(circle at 60px 8px,#4FD36A 0 4px,transparent 5px),
+    radial-gradient(circle at 84px 8px,#FFFFFF 0 4px,transparent 5px);
+  background-size:96px 14px;background-repeat:repeat-x;
+  filter:drop-shadow(0 0 4px rgba(255,216,58,.8));animation:luces 1.6s steps(1) infinite}
+@keyframes luces{0%{opacity:1}50%{opacity:.55}100%{opacity:1}}
+
+/* barra superior, hotbar y menú: bastón de caramelo */
+.top{border-bottom:0;padding-top:calc(env(safe-area-inset-top,0px) + 14px);
+  border-bottom:8px solid transparent;
+  border-image:repeating-linear-gradient(135deg,#C8302A 0 8px,#fff 8px 16px) 0 0 8 0/0 0 8px 0 stretch;
+  box-shadow:0 3px 0 #000,0 6px 26px rgba(200,48,42,.4)}
+.side{box-shadow:inset 0 3px 0 #5b5b5b,0 -6px 26px rgba(200,48,42,.25)}
+@media(max-width:900px){
+  .side{background:linear-gradient(#3a1214,#1a0809);border-top:8px solid transparent;
+    border-image:repeating-linear-gradient(135deg,#C8302A 0 8px,#fff 8px 16px) 8 0 0 0/8px 0 0 0 stretch}}
+@media(min-width:901px){
+  .side{background:linear-gradient(#3a1214,#1a0809);border-top:0;border-right:8px solid transparent;
+    border-image:repeating-linear-gradient(135deg,#C8302A 0 8px,#fff 8px 16px) 0 8 0 0/0 8px 0 0 stretch;
+    box-shadow:8px 0 30px rgba(200,48,42,.3)}}
+
+.nav button:hover{box-shadow:inset 3px 3px 0 #b8a07a,inset -3px -3px 0 #3a2a1a,0 0 0 2px var(--neon),0 0 14px var(--neon-glow);background:#6a5238}
+.nav button.active{background:#B52C1B;box-shadow:inset 3px 3px 0 #FF8A7A,inset -3px -3px 0 #6E1409,0 0 18px rgba(255,90,70,.6)}
+
+/* gorro de Papá Noel en el logo */
+.brand i{position:relative;overflow:visible}
+.brand i::before{content:"";position:absolute;left:0;top:-19px;width:28px;height:17px;background:#C8302A;border:3px solid #000;border-bottom:0;
+  box-shadow:inset 3px 3px 0 #FF6A5A,inset -3px 0 0 #8E1D14}
+.brand i::after{content:"";position:absolute;left:-7px;top:-3px;width:44px;height:7px;background:#fff;border:3px solid #000;
+  box-shadow:inset 0 -2px 0 #cfcfcf;
+  outline:0}
+
+/* botones */
+.btn:hover{background:#C8902A;box-shadow:inset -3px -3px 0 #8A5C10,inset 3px 3px 0 #FFE9A8}
+.btn.p{background:var(--g);box-shadow:inset -3px -3px 0 #145226,inset 3px 3px 0 #8FE39C}
+.btn.p:hover{background:#3BA34D;box-shadow:inset -3px -3px 0 #145226,inset 3px 3px 0 #B6F2BF}
+
+/* tarjetas: papel crema con borde de regalo */
+.card,.steps,.map{background:var(--cream);color:#2a1a14;
+  box-shadow:inset 3px 3px 0 #FFF8E6,inset -3px -3px 0 #A58B63,6px 6px 0 rgba(0,0,0,.5)}
+.steps li{border-top-color:#CDB98F}
+.card,.map{border-top:6px solid #C8302A}
+.steps{border-top:6px solid #2E8B3E}
+
+/* barra de progreso: bastón de caramelo */
+.bar i{background:repeating-linear-gradient(135deg,#C8302A 0 10px,#fff 10px 20px);box-shadow:0 0 12px rgba(255,216,58,.5)}
+
+/* títulos con brillo dorado */
+.kicker{color:#FFD83A}
+.lead b{color:#FFD83A}
+.pagehead{box-shadow:0 4px 0 rgba(255,216,58,.45)}
+@media(prefers-reduced-motion:reduce){html::after,body::after{animation:none!important}}
 </style></head><body>
 
 <header class="top"><a class="brand" href="#inicio" data-v="inicio"><i></i>World Port Legacy</a></header>
@@ -624,7 +711,7 @@ Listo ✓</pre>
   <div class="warns">
     <div class="card r"><h2>Importante</h2>
       <div class="li"><b>Cada mundo mide 128 de alto</b><span>Si tu mapa es más alto, se divide en varias capas (mundos) y no se pierde nada.</span></div>
-      <div class="li"><b>Bedrock ya tiene soporte</b><span>Mapas de Java y de Bedrock. Los de Bedrock nuevo se aproximan.</span></div></div>
+      <div class="li"><b>Bedrock ya tiene soporte</b><span>Mapas de Java y de Bedrock de cualquier versión. Los bloques nuevos se cambian por el más parecido.</span></div></div>
     <div class="card y"><h2>Cambia en tu mapa</h2>
       <div class="li"><b>Bloques nuevos se aproximan</b><span>Se cambian por uno parecido.</span></div>
       <div class="li"><b>Mundos muy altos</b><span>Se generan varias capas de 128: _capa1 (la más baja), _capa2...</span></div></div>
@@ -778,21 +865,9 @@ var CFG = loadCfg();
 
 var API_DEFAULT_URL = 'https://worldportlegacy-1.onrender.com';
 
-var RT_API = '';
-async function resolveApi(force){
-  if((CFG.api || '').trim()) return;
-  if(RT_API && !force) return;
-  try{
-    var r = await fetch(SUPABASE_DEFAULT_URL + '/rest/v1/server_config?key=eq.api_url&select=value', {
-      headers:{apikey:SUPABASE_DEFAULT_KEY, Authorization:'Bearer ' + SUPABASE_DEFAULT_KEY}, cache:'no-store'});
-    var d = await r.json();
-    if(d && d[0] && d[0].value) RT_API = String(d[0].value).trim().replace(/\/+$/, '');
-  }catch(e){}
-}
 function apiBase(){
   var b = (CFG.api || '').trim().replace(/\/+$/, '');
   if(b) return b;
-  if(RT_API) return RT_API;
   if(location.protocol === 'file:') return 'http://localhost:8080';
   return API_DEFAULT_URL;
 }
@@ -827,10 +902,7 @@ async function checkServer(){
     if(box.className === 'srv') txt.textContent = 'El servidor estaba dormido, despertando… puede tardar hasta un minuto.';
   }, 6000);
   try{
-    await resolveApi(false);
-    var d;
-    try{ d = await jfetch('/api/health'); }
-    catch(e1){ await resolveApi(true); d = await jfetch('/api/health'); }
+    var d = await jfetch('/api/health');
     SRV = {ok:true, info:d};
     box.className = 'srv ok';
     txt.innerHTML = '<b>Servidor conectado</b> · Python ' + esc(d.python) + ' · máximo ' + d.max_upload_mb + ' MB por archivo';
@@ -868,7 +940,7 @@ var T = [
  g:[['1. Sube el mapa',[{k:'f',t:'file',a:'.zip,.mcworld',l:'Mundo Bedrock en .zip o .mcworld',h:'La carpeta que trae db y level.dat. Máximo 500 MB.',max:500}]],
     ['2. Ajusta el mundo',[NM('Vacío = el nombre real del mundo.'),YM,YB,SP]],
     ['3. Opciones',[CK('dry','Solo analizar','No genera nada.'),CK('force','Sobrescribir si ya existe','')]]],
- w:'Los mundos viejos (MCPE 0.9 a 1.1) salen exactos. Los de Bedrock nuevo se aproximan, y cofres, carteles y camas no se colocan.',
+ w:'Sirve con cualquier versión de Bedrock (de MCPE 0.9 a la más nueva). Los bloques que 0.15.10 no tiene se cambian por el más parecido, y cofres, carteles y camas no se colocan.',
  c:function(v){var c='python convert.py --convert-world '+q(v.fn||'mundo_bedrock.zip');if(v.nm)c+=' --output '+v.nm.replace(/\s+/g,'_');if(v.ym=='raw')c+=' --y-mode raw';if(v.ym=='window')c+=' --y-mode window';if(v.ym=='base')c+=' --y-base '+(v.yb||0);if(v.sp)c+=' --spawn '+v.sp;if(v.dry)c+=' --dry-run';if(v.force)c+=' --force';return c;}},
 {id:'file',n:'Archivo a mundo',h:'Convertir un archivo a mundo',d:'Para construcciones sueltas: .json, .schem, .schematic, .dat, .nbt.',
  g:[['1. Sube el archivo',[{k:'f',t:'file',a:'.json,.schem,.schematic,.dat,.nbt',l:'Construcción',h:'Un solo archivo.'}]],
