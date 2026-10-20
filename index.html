@@ -678,6 +678,84 @@ h1{font-size:clamp(30px,8vw,46px);text-transform:uppercase}
   #lang_c{display:inline}
   .lang-m{top:auto;bottom:60px;left:0;right:auto;width:212px}
 }
+
+/* ===================== NAVIDAD: muñequitos y animaciones (solo diseño) ===================== */
+/* escena de Inicio */
+.xscene{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:clamp(8px,3.4vw,26px);margin:38px 0 0;padding:0 6px 16px;min-height:130px}
+.xs{position:relative;display:flex;align-items:flex-end;z-index:1}
+.xs::after{content:"";position:absolute;left:8%;right:8%;bottom:-5px;height:6px;background:rgba(0,0,0,.28)}
+.xs .sp{display:block;height:auto}
+.xs.sn .sp{width:clamp(54px,16vw,86px);transform-origin:50% 100%;animation:xwob 3.4s steps(4,end) infinite alternate}
+.xs.tr .sp{width:clamp(66px,20vw,106px)}
+.xs.cr .sp{width:clamp(60px,18vw,94px);transform-origin:50% 100%;animation:xhiss 5.5s steps(1) infinite}
+.xs.g1{gap:2px}.xs.g1 .sp{width:clamp(34px,10vw,50px)}.xs.g1 .sp.sm{width:clamp(26px,7.6vw,38px)}
+.xs.g2 .sp{width:clamp(34px,10vw,50px)}
+.xs.g1 .sp:first-child{animation:xhop 4.2s steps(1) infinite}.xs.g2 .sp{animation:xhop 3.3s steps(1) 1.2s infinite}
+.xground{position:absolute;left:-8px;right:-8px;bottom:0;height:14px;background:#F4F8FC;box-shadow:inset 0 3px 0 #fff,inset 0 -4px 0 #C9DCEA;z-index:0}
+.xground::before{content:"";position:absolute;left:0;right:0;top:-9px;height:10px;background:radial-gradient(circle at 12px 100%,#F4F8FC 0 9px,transparent 10px) 0 0/24px 10px repeat-x}
+@keyframes xwob{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+@keyframes xhiss{0%,70%,100%{transform:scale(1,1)}72%{transform:scale(1.16,.88)}76%{transform:scale(1.22,.84)}80%{transform:scale(1.08,1.14) translateY(-7px)}84%{transform:scale(1,1)}}
+@keyframes xhop{0%,86%,100%{transform:translateY(0)}90%{transform:translateY(-8px)}94%{transform:translateY(0)}97%{transform:translateY(-3px)}}
+/* luces de colores que parpadean (árbol y trineo) */
+.xl1,.xl2,.xl3,.xl4{animation:xlb 1.2s steps(1) infinite}
+.xl2{animation-delay:.3s}.xl3{animation-delay:.6s}.xl4{animation-delay:.9s}
+@keyframes xlb{0%{opacity:1}50%{opacity:.2}100%{opacity:1}}
+
+/* texto amarillo estilo título de Minecraft */
+.hearts{display:inline-block;vertical-align:middle;transform-origin:left center;animation:xbeat 2s steps(1) infinite}
+@keyframes xbeat{0%,45%,100%{transform:scale(1)}10%{transform:scale(1.08)}20%{transform:scale(1)}30%{transform:scale(1.05)}}
+.xsplash{display:inline-block;vertical-align:middle;margin:14px 0 0 22px;color:#FFD83A;font:400 25px/1 var(--vt);text-shadow:2px 2px #3F3F3F;white-space:nowrap;transform-origin:left center;animation:xsplash 1.1s ease-in-out infinite alternate}
+@keyframes xsplash{from{transform:rotate(-8deg) scale(.93)}to{transform:rotate(-8deg) scale(1.1)}}
+@media(max-width:470px){.xsplash{display:block;margin:12px 0 0 6px;font-size:23px}}
+
+/* carámbanos colgando de la barra de arriba */
+.top::after{content:"";position:absolute;left:0;right:0;top:calc(100% + 8px);height:16px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 16' shape-rendering='crispEdges'%3E%3Cg fill='%23DDF3FF'%3E%3Crect x='2' y='0' width='8' height='2'/%3E%3Crect x='3' y='2' width='6' height='3'/%3E%3Crect x='4' y='5' width='4' height='3'/%3E%3Crect x='5' y='8' width='2' height='3'/%3E%3Crect x='19' y='0' width='10' height='2'/%3E%3Crect x='20' y='2' width='8' height='3'/%3E%3Crect x='21' y='5' width='6' height='3'/%3E%3Crect x='22' y='8' width='4' height='3'/%3E%3Crect x='23' y='11' width='2' height='4'/%3E%3Crect x='37' y='0' width='6' height='2'/%3E%3Crect x='38' y='2' width='4' height='3'/%3E%3Crect x='39' y='5' width='2' height='3'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Crect x='2' y='0' width='3' height='2'/%3E%3Crect x='19' y='0' width='4' height='2'/%3E%3Crect x='37' y='0' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0/48px 16px}
+
+/* menú: el botón elegido salta como en la hotbar */
+.nav button.active{animation:xpop .36s steps(4)}
+@keyframes xpop{0%{transform:translateY(0)}45%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+/* botones verdes: brillo encantado de Minecraft */
+.acts .btn.p{position:relative;overflow:hidden}
+.acts .btn.p::after{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5) 45%,rgba(255,216,58,.4) 60%,transparent);
+  transform:translateX(-160%) skewX(-20deg);animation:xglint 4s steps(20) infinite}
+@keyframes xglint{0%,60%{transform:translateX(-160%) skewX(-20deg)}100%{transform:translateX(420%) skewX(-20deg)}}
+/* al abrir una página, el contenido sube escalonado */
+.view:not([hidden])>section,.view:not([hidden])>.pagehead,.view:not([hidden])>.sec,.view:not([hidden])>.card,.view:not([hidden])>.libtop,.view:not([hidden])>.fb-tabs{animation:xrise .5s steps(7) backwards}
+.view:not([hidden])>:nth-child(2){animation-delay:.06s}.view:not([hidden])>:nth-child(3){animation-delay:.12s}.view:not([hidden])>:nth-child(4){animation-delay:.18s}.view:not([hidden])>:nth-child(n+5){animation-delay:.24s}
+@keyframes xrise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* mobs que cruzan la pantalla */
+#xmobs{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 86px);height:0;z-index:205;pointer-events:none}
+@media(min-width:901px){#xmobs{left:240px;bottom:0}}
+.xmob{position:absolute;left:0;bottom:0;will-change:transform;animation-timing-function:linear;animation-fill-mode:forwards}
+.xmob .xin{position:relative;display:inline-block}
+.xmob .msv{display:block;width:46px;height:auto}
+.xmob.walk{animation-name:xwalkR}.xmob.walk.toL{animation-name:xwalkL}
+.xmob.walk .xin{animation:xstep .5s steps(1) infinite}
+.xmob .fa{display:block;animation:xfa .5s steps(1) infinite}
+.xmob .fb{position:absolute;left:0;top:0;animation:xfb .5s steps(1) infinite}
+.xmob .fa.hop{animation:none}
+@keyframes xwalkR{from{transform:translateX(-100px)}to{transform:translateX(calc(100vw + 30px))}}
+@keyframes xwalkL{from{transform:translateX(calc(100vw + 30px))}to{transform:translateX(-100px)}}
+@keyframes xstep{0%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes xfa{0%{opacity:1}50%{opacity:0}}
+@keyframes xfb{0%{opacity:0}50%{opacity:1}}
+.xmob.fly{position:fixed;left:0;top:calc(env(safe-area-inset-top,0px) + 96px);bottom:auto;animation-name:xwalkR}
+.xmob.fly.toL{animation-name:xwalkL}
+.xmob.fly .sleighsvg{display:block;width:156px;height:auto}
+.xmob.fly .xin{animation:xfloat 1.3s ease-in-out infinite alternate}
+.xmob.fly.toL .xin{transform:scaleX(-1)}
+@keyframes xfloat{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
+.xmob.fly.toL .xin{animation:none}
+@media(min-width:901px){.xmob.fly{top:46px}}
+/* partículas al tocar */
+.xpt{position:fixed;z-index:400;pointer-events:none;image-rendering:pixelated}
+@media(prefers-reduced-motion:reduce){
+  .xs .sp,.hearts,.xsplash,.nav button.active,.acts .btn.p::after,.xl1,.xl2,.xl3,.xl4,.view:not([hidden])>*{animation:none!important}
+  #xmobs{display:none}}
+
 </style></head><body>
 
 <header class="top"><a class="brand" href="#inicio" data-v="inicio"><i></i>World Port Legacy</a></header>
@@ -2419,6 +2497,127 @@ setReply=function(r){if(r){FBU.open[r.id]=true;$('fb_formsec').hidden=false;}_se
   var saved='es';try{saved=localStorage.getItem(ST)||'';}catch(e){}
   if(!saved&&navigator.language){var nl=navigator.language.slice(0,2);if(L.indexOf(nl)>0)saved=nl;}
   if(L.indexOf(saved)>0)apply(saved);else $('lang_c').textContent='Español';
+})();
+
+</script>
+<script>
+/* ===================== NAVIDAD: muñequitos y animaciones (solo diseño) ===================== */
+(function(){
+  try{
+    var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var PAL = {'W':'#FFFFFF','w':'#D6E4EE','R':'#C8302A','r':'#8E1D14','G':'#4FB35F','g':'#2E8B3E','K':'#15110F','Y':'#FFD83A','y':'#C99A10',
+               'S':'#F2C9A0','p':'#E0897A','O':'#F08A24','B':'#7A4A24','b':'#5B3517','T':'#6B4426','D':'#9A6232','d':'#7A4A24','A':'#D9B27C',
+               'N':'#FF3B30','L':'#9BD0FF','Z':'#145226','M':'#E8B8C8','m':'#C98FA3'};
+    var LIGHT = {'a':'xl1','b':'xl2','c':'xl3','d':'xl4'};      /* luces que parpadean */
+    var LCOL  = {'a':'#FF4A3D','b':'#FFD83A','c':'#5CC8FF','d':'#FF7BD5'};
+    function svg(rows, pal, cls){
+      pal = pal || PAL;
+      var w = rows[0].length, h = rows.length, out = '', x, y, c, run, k;
+      for(y = 0; y < h; y++){
+        x = 0;
+        while(x < w){
+          c = rows[y].charAt(x);
+          if(c === '.' || c === ' '){ x++; continue; }
+          run = 1; while(x + run < w && rows[y].charAt(x + run) === c) run++;
+          if(LIGHT[c]) { for(k = 0; k < run; k++) out += '<rect class="'+LIGHT[c]+'" x="'+(x+k)+'" y="'+y+'" width="1" height="1" fill="'+LCOL[c]+'"/>'; }
+          else out += '<rect x="'+x+'" y="'+y+'" width="'+run+'" height="1" fill="'+(pal[c] || '#f0f')+'"/>';
+          x += run;
+        }
+      }
+      return '<svg class="'+(cls || '')+'" viewBox="0 0 '+w+' '+h+'" shape-rendering="crispEdges" aria-hidden="true" focusable="false">'+out+'</svg>';
+    }
+    function pad(rows, n){ return rows.map(function(r){ return Array(n + 1).join('.') + r + Array(n + 1).join('.'); }); }
+    /* ---------- sprites ---------- */
+    var HAT = ['...........WW...','.......RRRRRWW..','......RRRRRRRR..','.....RRRRRRRRRr.','.WWWWWWWWWWWWWW.'];
+    var HEAD = ['GGgGGGGgGGGG','GGGGgGGGGGgG','GGKKGGGGKKGG','GGKKGgGGKKGG','GGGGKKKKGGGG','GgGKKKKKKGGG','GGGKKGGKKGGG','GGGKKGGKKGgG','gGGGGGGGGGGG','GGGgGGGGGgGG'];
+    var CREEPER = HAT.concat(pad(HEAD, 2));
+    var CREEPER_BODY = ['....gGGGGGGg....','....GGgGGGGG....','....GGGGGGgG....'];
+    var CREEPER_A = CREEPER.concat(CREEPER_BODY, ['....GGG....GGG...','....GgG....GgG...']);
+    var CREEPER_B = CREEPER.concat(CREEPER_BODY, ['.....GGG..GGG....','.....GgG..GgG....']);
+    var SANTA = ['.........WW...','...RRRRRRWW...','..RRRRRRRRR...','..RRRRRRRRRr..','.WWWWWWWWWWWW.',
+                 '..SSSSSSSSSS..','..SSKSSSSKSS..','..SSSSppSSSS..','.WWWWWWWWWWWW.','.WWWWWWWWWWWW.','..WWWWWWWWWW..',
+                 'RrRRRRRRRRRRrR','RrRRRRRRRRRRrR','RrKKKKYYKKKKrR','WrRRRRRRRRRRrW','..WWWWWWWWWW..'];
+    var SANTA_A = SANTA.concat(['...KKK..KKK...','...KKK..KKK...']);
+    var SANTA_B = SANTA.concat(['..KKK....KKK..','..KKK....KKK..']);
+    var SNOWMAN = ['....KKKKKK....','....KKKKKK....','....RRRRRR....','..KKKKKKKKKK..','...WWWWWWWW...','...WKWWWWKW...','...WWWWOOOW...','...WWKKKKWW...',
+                   '..RRRRRRRRRR..','...WWWWWRRW...','.BWWWWWWWWWWB.','BBWWWWKKWWWWBB','..WWWWWWWWWW..','..WWWWKKWWWW..','..wWWWWWWWWw..',
+                   '.WWWWWWWWWWWW.','.WWWWWWWWWWWW.','.wWWWWWWWWWWw.','..wwwwwwwwww..'];
+    var TREE = ['.......YY.......','......YYYY......','.......GG.......','......GaGG......','.....GGbGGG.....','....GGGGGcGG....','...GGGGGGGGGG...','......GGGG......','.....GGGGGG.....','....GGGdGGGG....','...GgGGGGGGGGg..','..GGGGGaGGGGGG..','.....GGGGGG.....','....GGGGGGGG....','...GGGbGGGGGG...','..GGGGGGGGcGGG..','.GGGGGGGGGGGGGG.','GGGGGaGGGGGGGGGG','......TTTT......','......TTTT......'];
+    function gift(main, shade, band){
+      var P = {'B':main,'b':shade,'Y':band}; 
+      return svg(['...BBB.BBB..','....BBYBB...','BBBBBYYBBBBB','bbbbbYYbbbbb','BBBBBYYBBBBB','YYYYYYYYYYYY','BBBBBYYBBBBB','BBBBBYYBBBBB','bbbbbYYbbbbb'], P, 'sp');
+    }
+    var SLEIGH = ['..............WW............................','.............RRRR.....................A.A...','............WWWWW.......A.A............AAAA.','............SKSKS........AAA..........DDDDDN','............WWWWW.........DDDDDDDD..A.ADDDD.','..RR.......RRRRRR.........DDDDDDDDD..AAADDD.','.RRRRRRRRRRRRRRRRRRTTTTTTTDDDDDDDDDTTTTTDDD.','.RRRRRRRRRRRRRRRRRR.......DDDDDDDDD.....DD..','..RrrrrrrrrrrrrrRR........D.D..D.D......D.D.','...RRRRRRRRRRRRR..........D.D..D.D......D.D.','YYYYYYYYYYYYYYYYYYY.......b.b..b.b......b.b.','.yyyyyyyyyyyyyyyyyy.........................'];
+    /* ---------- escena en Inicio ---------- */
+    function buildScene(){
+      var host = document.getElementById('v-inicio'); if(!host || host.querySelector('.xscene')) return;
+      var first = host.querySelector('section'); if(!first) return;
+      var d = document.createElement('div'); d.className = 'xscene'; d.setAttribute('aria-hidden','true');
+      d.innerHTML =
+        '<div class="xs g1">'+gift('#C8302A','#8E1D14','#FFD83A')+gift('#2E8B3E','#145226','#FFFFFF').replace('class="sp"','class="sp sm"')+'</div>'+
+        '<div class="xs sn">'+svg(SNOWMAN,null,'sp')+'</div>'+
+        '<div class="xs tr">'+svg(TREE,null,'sp')+'</div>'+
+        '<div class="xs cr">'+svg(CREEPER,null,'sp')+'</div>'+
+        '<div class="xs g2">'+gift('#3A6FD8','#24468C','#FFD83A')+'</div>'+
+        '<div class="xground"></div>';
+      first.parentNode.insertBefore(d, first.nextSibling);
+    }
+    /* ---------- texto estilo Minecraft (splash) ---------- */
+    function buildSplash(){
+      var hero = document.querySelector('#v-inicio .hearts'); if(!hero || document.querySelector('.xsplash')) return;
+      var s = document.createElement('span'); s.className = 'xsplash'; s.setAttribute('aria-hidden','true'); hero.parentNode.insertBefore(s, hero.nextSibling);
+      var en = /^en/i.test(document.documentElement.lang || '');
+      var M = en ? ['Merry Christmas!','Ho ho ho!','Fresh snow!','Now with Bedrock!','Made with love!','Creeper? Aw man!']
+                 : ['¡Feliz Navidad!','¡Ho ho ho!','¡Nieve fresca!','¡Ahora con Bedrock!','¡Hecho con amor!','¿Un Creeper? ¡Ay no!'];
+      var i = 0; s.textContent = M[0];
+      if(!RM) setInterval(function(){ if(document.hidden) return; i = (i + 1) % M.length; s.textContent = M[i]; }, 4200);
+    }
+    /* ---------- mobs que cruzan la pantalla ---------- */
+    var layer, busy = false;
+    function mob(kind){
+      if(busy || document.hidden || !layer) return; busy = true;
+      var el = document.createElement('div'), left = Math.random() < .5, dur, html;
+      if(kind === 'sleigh'){ dur = 14; html = svg(SLEIGH, null, 'sleighsvg'); el.className = 'xmob fly'; }
+      else {
+        dur = 16 + Math.random() * 6; el.className = 'xmob walk';
+        var A = kind === 'creeper' ? CREEPER_A : (kind === 'santa' ? SANTA_A : null), B = kind === 'creeper' ? CREEPER_B : (kind === 'santa' ? SANTA_B : null);
+        html = A ? '<span class="fa">'+svg(A,null,'msv')+'</span><span class="fb">'+svg(B,null,'msv')+'</span>' : '<span class="fa hop">'+svg(SNOWMAN,null,'msv')+'</span>';
+      }
+      el.innerHTML = '<div class="xin">'+html+'</div>';
+      el.style.animationDuration = dur + 's'; el.classList.add(left ? 'toL' : 'toR');
+      layer.appendChild(el);
+      setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); busy = false; }, dur * 1000 + 400);
+    }
+    function mobLoop(){
+      if(RM) return;
+      layer = document.createElement('div'); layer.id = 'xmobs'; layer.setAttribute('aria-hidden','true'); document.body.appendChild(layer);
+      var kinds = ['creeper','santa','snowman','sleigh','creeper','santa'], n = 0;
+      setTimeout(function(){ mob('creeper'); }, 5000);
+      setInterval(function(){ mob(kinds[(n++) % kinds.length]); }, 38000);
+    }
+    /* ---------- partículas al tocar (como al romper un bloque) ---------- */
+    var COLS = ['#FFD83A','#FFFFFF','#C8302A','#4FB35F','#9BD0FF'], live = 0;
+    function burst(x, y){
+      if(RM || !document.body.animate) return;
+      for(var i = 0; i < 8 && live < 28; i++){
+        (function(){
+          var p = document.createElement('i'), s = 4 + Math.floor(Math.random() * 4), a = Math.random() * Math.PI - Math.PI, v = 30 + Math.random() * 55;
+          p.className = 'xpt'; p.style.cssText = 'width:'+s+'px;height:'+s+'px;left:'+(x - s/2)+'px;top:'+(y - s/2)+'px;background:'+COLS[Math.floor(Math.random()*COLS.length)];
+          document.body.appendChild(p); live++;
+          var dx = Math.cos(a) * v, dy = Math.sin(a) * v;
+          var an = p.animate([{transform:'translate(0,0)',opacity:1},{transform:'translate('+dx+'px,'+(dy - 10)+'px)',opacity:1,offset:.45},{transform:'translate('+(dx*1.25)+'px,'+(dy + 70)+'px)',opacity:0}], {duration:520 + Math.random()*260, easing:'steps(9)'});
+          an.onfinish = function(){ if(p.parentNode) p.parentNode.removeChild(p); live--; };
+        })();
+      }
+    }
+    document.addEventListener('pointerdown', function(e){
+      var t = e.target; if(!t || !t.closest) return;
+      if(t.closest('.btn,.nav button,.tool,.adm-top,.mus-btn,.lang-b,.brand,.lang-m button')) burst(e.clientX, e.clientY);
+    }, {passive:true});
+    function init(){ buildScene(); buildSplash(); mobLoop(); }
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+    window.__xmas = {svg:svg, SLEIGH:SLEIGH, CREEPER:CREEPER, SANTA:SANTA, SNOWMAN:SNOWMAN, TREE:TREE, mob:mob};
+  }catch(err){ /* el diseño nunca debe romper la página */ }
 })();
 
 </script>
