@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Algo falló · World Port Legacy</title>
+<style>
+:root{--sp3:#0a2218;--sp:#0f3324;--sp2:#14402e;--cr:#c8302a;--gd:#f4c542}
+html[data-skin="clasico"]{--cr:#866043;--gd:#FCDB05}
+html[data-skin="nether"]{--sp3:#1a0505;--sp:#2b0b09;--sp2:#401410;--cr:#ff7a1a;--gd:#ffd25a}
+html[data-skin="end"]{--sp3:#0b0816;--sp:#17102b;--sp2:#251a44;--cr:#a66bff;--gd:#e6d1ff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#e9f3ec;
+  font:400 20px/1.35 ui-monospace,Menlo,Consolas,monospace;background:radial-gradient(ellipse at 50% 30%,var(--sp2),var(--sp) 55%,var(--sp3))}
+.box{max-width:460px;width:100%;padding:26px 20px;background:var(--sp2);border:4px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.1),6px 6px 0 rgba(0,0,0,.5)}
+svg{display:block;margin:0 auto;filter:drop-shadow(0 6px 0 rgba(0,0,0,.45));animation:w 2.6s ease-in-out infinite}
+@keyframes w{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-5px)}}
+.n{font:400 clamp(48px,18vw,88px)/1 ui-monospace,Menlo,Consolas,monospace;font-weight:700;color:var(--gd);text-shadow:5px 5px #000;margin:12px 0 4px}
+h1{margin:0 0 8px;font-size:22px;color:#fff;text-shadow:3px 3px #000}
+p{margin:0 0 18px;color:#cfe0d4}
+a{display:inline-block;padding:12px 20px;background:var(--cr);color:#fff;text-decoration:none;font-weight:700;border:3px solid #000;box-shadow:inset 3px 3px 0 rgba(255,255,255,.3),inset -3px -3px 0 rgba(0,0,0,.35);text-shadow:2px 2px #000}
+a.alt{background:#686868}
+.r{margin:0 0 12px}
+a:hover{filter:brightness(1.12)}a:active{transform:translateY(2px)}
+@media(prefers-reduced-motion:reduce){svg{animation:none}}
+</style></head><body>
+<div class="box">
+<svg viewBox="0 0 18 18" width="120" height="120" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="1" width="16" height="16" fill="#3F7A1F"/><rect x="1" y="1" width="15" height="15" fill="#5FB846"/><rect x="2" y="2" width="3" height="2" fill="#7ED05F"/><rect x="9" y="3" width="2" height="2" fill="#4B9E36"/><rect x="13" y="2" width="2" height="3" fill="#7ED05F"/><rect x="3" y="11" width="2" height="2" fill="#4B9E36"/><rect x="12" y="12" width="3" height="2" fill="#7ED05F"/><rect x="3" y="5" width="4" height="4" fill="#0b1a10"/><rect x="11" y="5" width="4" height="4" fill="#0b1a10"/><rect x="7" y="8" width="4" height="4" fill="#0b1a10"/><rect x="6" y="11" width="2" height="4" fill="#0b1a10"/><rect x="10" y="11" width="2" height="4" fill="#0b1a10"/></svg>
+<div class="n" id="n">¡Ups!</div>
+<h1 id="t">No se pudo cargar</h1>
+<p id="d">Algo falló o no hay conexión a internet. Revisa tu conexión e inténtalo de nuevo. Si sigue igual, vuelve al inicio.</p>
+<p class="r"><a id="r" href="#" role="button">Reintentar</a></p>
+<a id="b" href="/" class="alt">Volver al inicio</a>
+</div>
+<script>
+(function(){
+  /* mismos colores e idioma que eligió la persona en la página principal */
+  function ck(n){ try{ var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : null; }catch(e){ return null; } }
+  function get(k){ var v = null; try{ v = localStorage.getItem(k); }catch(e){} return v || ck(k); }
+  var sk = get('wpl_skin'); if(['clasico','nether','end'].indexOf(sk) > -1) document.documentElement.setAttribute('data-skin', sk);
+  var lg = get('wpl_lang') || (navigator.language || 'es').slice(0, 2), T = {
+    en: ['Could not load', 'Something failed or there is no internet connection. Check your connection and try again. If it stays the same, go back home.', 'Back to home', 'Retry', 'Oops!'],
+    pt: ['Não foi possível carregar', 'Algo falhou ou não há conexão com a internet. Verifique sua conexão e tente de novo. Se continuar igual, volte ao início.', 'Voltar ao início', 'Tentar de novo', 'Ops!']
+  }[lg];
+  if(T){ document.documentElement.lang = lg; document.getElementById('t').textContent = T[0]; document.getElementById('d').textContent = T[1]; document.getElementById('b').textContent = T[2]; document.getElementById('r').textContent = T[3]; document.getElementById('n').textContent = T[4]; }
+  document.getElementById('r').addEventListener('click', function(e){ e.preventDefault(); location.reload(); });
+  /* en GitHub Pages de proyecto, «/» no es la raíz de la página: se vuelve a la carpeta del proyecto */
+  if(/\.github\.io$/.test(location.hostname)){ var p = location.pathname.split('/')[1]; if(p) document.getElementById('b').href = '/' + p + '/'; }
+})();
+</script>
+</body></html>
