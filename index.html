@@ -1615,6 +1615,21 @@ html[data-skin="clasico"] .sc-h path:nth-child(2){opacity:0}
   <div class="acts"><button class="btn p" id="adm_ok" type="button">Entrar</button><button class="btn" id="adm_cancel" type="button">Cancelar</button></div>
 </div>
 
+<details class="card" id="cd_adm" hidden>
+  <summary>Cuenta regresiva (admin)</summary>
+  <p id="cd_adm_st" class="cd-st">Cargando…</p>
+  <div class="f"><label class="l" for="cd_a_dias">Añadir tiempo (días; en negativo resta)</label><input type="number" id="cd_a_dias" value="7" step="1"></div>
+  <div class="acts"><button class="btn sm p" type="button" id="cd_b_sumar">Añadir días</button><button class="btn sm" type="button" id="cd_b_reini">Reiniciar a 30 días</button></div>
+  <div class="cd-sep"></div>
+  <div class="f"><label class="l" for="cd_a_horas">Ocultar el anuncio por (horas)</label><input type="number" id="cd_a_horas" value="24" min="1" step="1"></div>
+  <div class="acts"><button class="btn sm" type="button" id="cd_b_temp">Ocultar temporal</button><button class="btn sm" type="button" id="cd_b_fin">Quitar para siempre</button><button class="btn sm p" type="button" id="cd_b_show">Mostrar de nuevo</button></div>
+  <div class="cd-sep"></div>
+  <div class="f"><label class="l" for="cd_e_tit">Título</label><input type="text" id="cd_e_tit" maxlength="120" autocomplete="off"></div>
+  <div class="f"><label class="l" for="cd_e_msg">Razón / mensaje</label><textarea id="cd_e_msg" maxlength="1500"></textarea></div>
+  <div class="f"><label class="l" for="cd_e_meta">Meta de votos</label><input type="number" id="cd_e_meta" min="1" step="1" value="100"></div>
+  <div class="acts"><button class="btn sm p" type="button" id="cd_b_edit">Guardar anuncio</button><button class="btn sm" type="button" id="cd_b_ver">Ver anuncio ahora</button><button class="btn sm del" type="button" id="cd_b_borrar">Borrar votos</button></div>
+</details>
+
 <div class="view" id="v-404" hidden>
   <div class="card nf">
     <svg class="nf-svg" viewBox="0 0 18 18" width="120" height="120" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="1" width="16" height="16" fill="#3F7A1F"/><rect x="1" y="1" width="15" height="15" fill="#5FB846"/><rect x="2" y="2" width="3" height="2" fill="#7ED05F"/><rect x="9" y="3" width="2" height="2" fill="#4B9E36"/><rect x="13" y="2" width="2" height="3" fill="#7ED05F"/><rect x="3" y="11" width="2" height="2" fill="#4B9E36"/><rect x="12" y="12" width="3" height="2" fill="#7ED05F"/><rect x="3" y="5" width="4" height="4" fill="#0b1a10"/><rect x="11" y="5" width="4" height="4" fill="#0b1a10"/><rect x="7" y="8" width="4" height="4" fill="#0b1a10"/><rect x="6" y="11" width="2" height="4" fill="#0b1a10"/><rect x="10" y="11" width="2" height="4" fill="#0b1a10"/></svg>
@@ -4321,6 +4336,211 @@ var WV = (function(){
     hide(); try{ if(typeof checkServer == 'function') checkServer(); }catch(e){}
   };
   if(navigator.onLine === false) show();
+})();
+</script>
+<style>
+#ts{z-index:99999!important}
+#cd_ov{position:fixed;inset:0;z-index:99985;display:flex;padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px));background:rgba(0,0,0,.86);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#cd_ov .cd-box{width:100%;max-width:580px;margin:auto;text-align:center;padding:0 0 20px;overflow:hidden}
+#cd_strip{background:var(--red,#B52C1B);color:#fff;text-shadow:2px 2px #000;font-size:22px;letter-spacing:1px;padding:8px 12px;margin-bottom:16px}
+#cd_strip.ok{background:#2f7d2f}
+#cd_t{font-size:clamp(26px,7vw,40px);line-height:1.1;padding:0 16px;margin-bottom:14px}
+.cd-clock{display:flex;gap:8px;justify-content:center;margin:0 12px 16px}
+.cd-clock div{flex:1;max-width:110px;background:#000;border:3px solid #fff;outline:3px solid #000;padding:8px 2px 6px}
+.cd-clock b{display:block;font-weight:400;font-size:clamp(30px,10vw,52px);line-height:1;color:var(--gold,#FCDB05);font-variant-numeric:tabular-nums;text-shadow:2px 2px #3a3000}
+.cd-clock small{display:block;margin-top:4px;font-size:16px;color:#cfcfcf}
+#cd_msg{white-space:pre-line;text-align:left;font-size:21px;line-height:1.3;padding:0 18px;margin-bottom:16px}
+.cd-bar{height:26px;margin:0 18px 6px;background:#000;border:3px solid #fff;outline:3px solid #000}
+.cd-bar i{display:block;height:100%;width:0;background:var(--g,#5FB846);transition:width .5s}
+#cd_vt{font-size:22px;margin-bottom:6px}
+#cd_ov .acts{justify-content:center;padding:0 14px}
+#cd_adm summary{font-size:24px}
+.cd-com{text-align:left;margin:20px 18px 0;padding-top:16px;border-top:3px solid rgba(0,0,0,.35)}
+.cd-com h3{font-size:26px;margin-bottom:12px}
+.cd-com .f{margin-bottom:10px}
+#cd_ov .cd-com textarea{min-height:72px}
+.cd-com .acts{justify-content:flex-start;padding:0;margin:4px 0 14px}
+.cd-c{padding:10px 12px;margin-bottom:10px;background:rgba(0,0,0,.28);border:3px solid rgba(0,0,0,.45)}
+.cd-ch{display:flex;justify-content:space-between;gap:10px;font-size:20px}
+.cd-ch small{font-size:16px;opacity:.75;white-space:nowrap}
+.cd-c p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:20px;line-height:1.25;margin:4px 0 6px}
+#cd_clist{max-height:42vh;overflow-y:auto}
+#cd_ov .cd-box{background:#1b1b1b!important;color:#fff!important;text-shadow:none}
+#cd_ov .cd-box h2,#cd_ov .cd-box h3,#cd_ov .cd-box p,#cd_ov .cd-box b,#cd_ov .cd-box small,#cd_ov .cd-box .empty,#cd_ov #cd_vt{color:#fff!important;text-shadow:none}
+#cd_ov .cd-box .cd-clock b{color:var(--gold,#FCDB05)!important;text-shadow:2px 2px #3a3000}
+#cd_ov .cd-box .cd-clock small{color:#cfcfcf!important}
+#cd_ov .cd-com{border-top-color:rgba(255,255,255,.25)}
+#cd_ov .cd-c{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
+.cd-st{margin:12px 0;font-size:20px}
+.cd-sep{height:3px;background:rgba(0,0,0,.35);margin:18px 0}
+</style>
+<div id="cd_ov" role="dialog" aria-modal="true" aria-labelledby="cd_t" hidden>
+  <div class="card cd-box">
+    <div id="cd_strip">⚠ AVISO IMPORTANTE</div>
+    <h2 id="cd_t"></h2>
+    <div class="cd-clock" id="cd_clock"><div><b id="cd_dd">0</b><small>días</small></div><div><b id="cd_hh">00</b><small>horas</small></div><div><b id="cd_mm">00</b><small>min</small></div><div><b id="cd_ss">00</b><small>seg</small></div></div>
+    <p id="cd_msg"></p>
+    <div class="cd-bar"><i id="cd_fill"></i></div>
+    <div id="cd_vt"></div>
+    <div class="acts"><button class="btn p" type="button" id="cd_vote">Votar para que siga</button><button class="btn" type="button" id="cd_close">Cerrar</button></div>
+    <div class="cd-com">
+      <h3 id="cd_ccount">Comentarios</h3>
+      <div class="f"><input type="text" id="cd_cnom" maxlength="30" placeholder="Tu nombre (opcional)" autocomplete="off"></div>
+      <div class="f"><textarea id="cd_ctxt" maxlength="300" placeholder="Escribe tu opinión…"></textarea></div>
+      <div class="acts"><button class="btn sm p" type="button" id="cd_csend">Comentar</button></div>
+      <div id="cd_clist"></div>
+    </div>
+  </div>
+</div>
+<script>
+/* Cuenta regresiva + votos de apoyo (Supabase: cuenta_regresiva, apoyo_votos; SQL en supabase_cuenta_regresiva.sql) */
+(function(){
+  var COM = {items:[], busy:false};
+  var CD = {d:null, skew:0, tick:null, poll:null, busy:false, seen:false, filled:false, open:false};
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function now(){ return Date.now() + CD.skew; }
+  async function rpc(name, body){
+    var c = supa(); if(!c.url || !c.key) throw new Error('Supabase no está configurado.');
+    var r = await fetch(c.url + '/rest/v1/rpc/' + name, {method:'POST', headers:fbHeaders(c, {'Content-Type':'application/json'}), body:JSON.stringify(body || {})});
+    if(!r.ok) throw new Error(await why(r));
+    return r.json();
+  }
+  function seen(){ try{ return sessionStorage.getItem('wpl_cd_x') === '1'; }catch(e){ return CD.seen; } }
+  function markSeen(){ CD.seen = true; try{ sessionStorage.setItem('wpl_cd_x', '1'); }catch(e){} }
+  function visible(d){ return !!(d && d.activo && !(d.oculto_hasta && Date.parse(d.oculto_hasta) > now())); }
+  function met(d){ return (Number(d.votos) || 0) >= (Number(d.meta) || 1); }
+
+  function clock(){
+    var d = CD.d; if(!d) return;
+    var s = Math.max(0, Math.floor((Date.parse(d.fin) - now()) / 1000));
+    $('cd_dd').textContent = Math.floor(s / 86400);
+    $('cd_hh').textContent = pad(Math.floor(s % 86400 / 3600));
+    $('cd_mm').textContent = pad(Math.floor(s % 3600 / 60));
+    $('cd_ss').textContent = pad(s % 60);
+  }
+  function render(){
+    var d = CD.d; if(!d) return;
+    var ok = met(d), over = Date.parse(d.fin) - now() <= 0, v = Number(d.votos) || 0, m = Number(d.meta) || 1;
+    $('cd_strip').textContent = ok ? '🎉 ¡META CUMPLIDA!' : over ? '⏰ SE ACABÓ EL TIEMPO' : '⚠ AVISO IMPORTANTE';
+    $('cd_strip').className = ok ? 'ok' : '';
+    $('cd_t').textContent = ok ? '¡La página sigue!' : d.titulo;
+    $('cd_msg').textContent = ok ? 'Se llegó a la meta de ' + m + ' votos. Gracias por el apoyo: la página no se elimina y seguimos con los updates.' : d.mensaje;
+    $('cd_clock').hidden = ok;
+    $('cd_fill').style.width = Math.min(100, v / m * 100) + '%';
+    $('cd_vt').textContent = v + ' / ' + m + ' votos' + (ok ? '' : ' · faltan ' + (m - v));
+    var b = $('cd_vote');
+    b.hidden = ok; b.disabled = !!d.ya_voto; b.textContent = d.ya_voto ? '✔ Ya votaste, gracias' : 'Votar para que siga';
+    clock();
+  }
+  function openIt(){
+    if(!CD.d) return;
+    render(); $('cd_ov').hidden = false; CD.open = true;
+    document.documentElement.style.overflow = 'hidden';
+    clearInterval(CD.tick); CD.tick = setInterval(clock, 1000);
+    clearInterval(CD.poll); CD.poll = setInterval(function(){ load(false); }, 30000);
+    try{ $('cd_vote').focus(); }catch(e){}
+    if(!$('cd_cnom').value && CFG && CFG.author) $('cd_cnom').value = CFG.author;
+    loadCom();
+  }
+  function closeIt(){
+    $('cd_ov').hidden = true; CD.open = false; markSeen();
+    document.documentElement.style.overflow = '';
+    clearInterval(CD.tick); clearInterval(CD.poll);
+  }
+  async function load(auto){
+    try{
+      var d = await rpc('get_cuenta', {p_device:deviceId()});
+      CD.d = d || null;
+      if(d && d.ahora) CD.skew = Date.parse(d.ahora) - Date.now();
+    }catch(e){ if(auto) return; }   /* si falta el SQL o no hay red, la página sigue normal sin anuncio */
+    if(!CD.d) return;
+    admStatus();
+    if(CD.open){ if(visible(CD.d) || ADM.on){ render(); loadCom(); } else closeIt(); }
+    else if(auto && visible(CD.d) && !seen()) openIt();
+  }
+  $('cd_close').onclick = closeIt;
+  document.addEventListener('keydown', function(e){ if(e.key == 'Escape' && CD.open) closeIt(); });
+  $('cd_vote').onclick = async function(){
+    var d = CD.d; if(CD.busy || !d || d.ya_voto) return;
+    CD.busy = true; $('cd_vote').disabled = true;
+    try{
+      var r = await rpc('votar_apoyo', {p_device:deviceId()});
+      if(!r || r.ok !== true) throw new Error('no');
+      d.ya_voto = true; d.votos = r.votos; toast('¡Gracias por tu voto!');
+    }catch(e){ toast(e instanceof TypeError ? 'No se pudo votar. Revisa tu conexión.' : 'No se pudo guardar tu voto. Intenta de nuevo.'); }
+    finally{ CD.busy = false; render(); }
+  };
+
+  /* ---------- panel admin ---------- */
+  function admStatus(){
+    var d = CD.d, el = $('cd_adm_st'); if(!d) return;
+    if(!CD.filled){ $('cd_e_tit').value = d.titulo; $('cd_e_msg').value = d.mensaje; $('cd_e_meta').value = d.meta; CD.filled = true; }
+    var est = !d.activo ? 'quitado (desactivado)' : (d.oculto_hasta && Date.parse(d.oculto_hasta) > now()) ? 'oculto hasta ' + new Date(d.oculto_hasta).toLocaleString('es') : 'visible';
+    var rest = Math.floor((Date.parse(d.fin) - now()) / 3600000);
+    el.textContent = 'Anuncio: ' + est + '. Termina: ' + new Date(d.fin).toLocaleString('es') + ' (' + (rest > 0 ? 'faltan ' + Math.floor(rest / 24) + ' d ' + (rest % 24) + ' h' : 'ya terminó') + '). Votos: ' + d.votos + ' / ' + d.meta + '.';
+  }
+  var _admUI = admUI;
+  admUI = function(){ _admUI(); $('cd_adm').hidden = !ADM.on; if(ADM.on) admStatus(); if(CD.open) renderCom(); };
+  async function act(accion, extra, okMsg){
+    if(!ADM.on || !ADM.clave){ toast('Entra como admin primero.'); return; }
+    try{
+      var r = await rpc('admin_cuenta', Object.assign({p_clave:ADM.clave, p_accion:accion}, extra || {}));
+      if(r !== true){ toast('Contraseña incorrecta.'); return; }
+      toast(okMsg); await load(false);
+    }catch(e){ toast(e instanceof TypeError ? 'No se pudo guardar. Revisa tu conexión.' : 'No se pudo guardar ' + e.message + '. ¿Ya corriste el SQL de Supabase?'); }
+  }
+  function num(id, def){ var n = parseFloat($(id).value); return isFinite(n) ? n : def; }
+  $('cd_b_sumar').onclick = function(){ var n = num('cd_a_dias', 0); if(!n){ toast('Escribe los días.'); return; } act('sumar', {p_dias:n}, n > 0 ? 'Se añadieron ' + n + ' día(s).' : 'Se restaron ' + (-n) + ' día(s).'); };
+  $('cd_b_reini').onclick = function(){ act('reiniciar', {p_dias:30}, 'Cuenta reiniciada a 30 días.'); };
+  $('cd_b_temp').onclick = function(){ var h = num('cd_a_horas', 0); if(h <= 0){ toast('Escribe las horas.'); return; } act('ocultar_temp', {p_horas:h}, 'Anuncio oculto por ' + h + ' h.'); };
+  $('cd_b_fin').onclick = function(){ if(confirm('¿Quitar el anuncio para siempre? Puedes volver a mostrarlo desde aquí.')) act('ocultar_siempre', {}, 'Anuncio quitado.'); };
+  $('cd_b_show').onclick = function(){ act('mostrar', {}, 'Anuncio visible de nuevo.'); };
+  $('cd_b_edit').onclick = function(){
+    var t = $('cd_e_tit').value.trim(), m = $('cd_e_msg').value.trim(), meta = Math.round(num('cd_e_meta', 0));
+    if(t.length < 3 || m.length < 3){ toast('Escribe título y mensaje.'); return; }
+    if(meta < 1){ toast('La meta debe ser al menos 1.'); return; }
+    act('editar', {p_titulo:t, p_mensaje:m, p_meta:meta}, 'Anuncio guardado.');
+  };
+  $('cd_b_borrar').onclick = function(){ if(confirm('¿Borrar TODOS los votos de apoyo?')) act('borrar_votos', {}, 'Votos borrados.'); };
+  $('cd_b_ver').onclick = function(){ if(!CD.d){ toast('Aún no hay datos. ¿Ya corriste el SQL?'); return; } openIt(); };
+
+  /* ---------- comentarios ---------- */
+  async function loadCom(){
+    try{ COM.items = (await rpc('listar_comentarios_cuenta', {p_device:deviceId()})) || []; }catch(e){ return; }
+    renderCom();
+  }
+  function renderCom(){
+    var l = COM.items || [];
+    $('cd_ccount').textContent = 'Comentarios (' + l.length + ')';
+    $('cd_clist').innerHTML = l.length ? l.map(function(c){
+      var can = ADM.on || c.mio;
+      return '<div class="cd-c"><div class="cd-ch"><b>' + esc(c.nombre) + '</b><small>' + esc(ago(c.created_at)) + '</small></div><p>' + esc(c.texto) + '</p>' +
+        (can ? '<button class="btn sm del" type="button" data-cdel="' + c.id + '">Borrar</button>' : '') + '</div>';
+    }).join('') : '<div class="empty">Todavía no hay comentarios. Sé el primero.</div>';
+  }
+  $('cd_csend').onclick = async function(){
+    if(COM.busy) return;
+    var t = $('cd_ctxt').value.trim(), n = $('cd_cnom').value.trim();
+    if(t.length < 2){ toast('Escribe tu comentario.'); return; }
+    COM.busy = true; $('cd_csend').disabled = true;
+    try{
+      var r = await rpc('comentar_cuenta', {p_nombre:n.slice(0, 30), p_texto:t.slice(0, 300), p_device:deviceId()});
+      if(!r || r.ok !== true){ toast((r && r.error) || 'No se pudo comentar.'); return; }
+      $('cd_ctxt').value = ''; toast('Comentario publicado.'); await loadCom();
+    }catch(e){ toast(e instanceof TypeError ? 'No se pudo comentar. Revisa tu conexión.' : 'No se pudo comentar ' + e.message + '. ¿Ya corriste el SQL de comentarios?'); }
+    finally{ COM.busy = false; $('cd_csend').disabled = false; }
+  };
+  $('cd_clist').addEventListener('click', async function(e){
+    var b = e.target.closest ? e.target.closest('[data-cdel]') : null; if(!b) return;
+    if(!confirm('¿Borrar este comentario?')) return;
+    try{
+      var r = await rpc('borrar_comentario_cuenta', {p_id:Number(b.getAttribute('data-cdel')), p_device:deviceId(), p_clave:ADM.on ? ADM.clave : null});
+      if(r !== true){ toast('No se pudo borrar.'); return; }
+      toast('Comentario borrado.'); loadCom();
+    }catch(e2){ toast('No se pudo borrar. Intenta de nuevo.'); }
+  });
+
+  load(true);
 })();
 </script>
 </body></html>
