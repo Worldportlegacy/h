@@ -4456,7 +4456,7 @@ var WV = (function(){
     if(!CD.d) return;
     admStatus();
     if(CD.open){ if(visible(CD.d) || ADM.on){ render(); loadCom(); } else closeIt(); }
-    else if(auto && visible(CD.d) && !seen()) openIt();
+    else if(auto && visible(CD.d)) openIt();
   }
   $('cd_close').onclick = closeIt;
   document.addEventListener('keydown', function(e){ if(e.key == 'Escape' && CD.open) closeIt(); });
