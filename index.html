@@ -1934,7 +1934,7 @@ function loadCfg(){
 function saveCfg(){ try{ localStorage.setItem(CFG_KEY, JSON.stringify(CFG)); return true; }catch(e){ return false; } }
 var CFG = loadCfg();
 
-var API_DEFAULT_URL = (location.protocol === 'file:') ? 'http://localhost:8080' : location.origin; /* página y servidor en el mismo host */
+var API_DEFAULT_URL = 'http://78.154.103.28:15893'; /* servidor en Wispbyte */
 
 var RT_API = '';
 async function resolveApi(force){}
